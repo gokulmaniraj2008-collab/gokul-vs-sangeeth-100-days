@@ -1,258 +1,60 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#070b14">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>100 Days — Track</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070b14"><title>Gokul vs Sangeeth — 100 Days</title>
 <style>
-:root{--bg:#070b14;--panel:#0e1625;--panel2:#0a111d;--line:#223149;--text:#f4f7ff;--muted:#8fa0b8;--g:#55d6be;--s:#9b8cff;--gold:#ffd166;--danger:#ff6b7a}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:radial-gradient(850px 500px at 20% -10%,#1b3150 0,#070b14 62%);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-button,input,textarea{font:inherit}
-button{touch-action:manipulation}
-.wrap{max-width:1100px;margin:auto;padding:18px 15px calc(105px + env(safe-area-inset-bottom))}
-.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.brand{font-size:20px;font-weight:950;letter-spacing:-.02em}
-.topRight{text-align:right;min-width:145px}
-.clock{font-size:15px;font-weight:900;letter-spacing:.02em}
-.dateTop,.status{font-size:11px;color:var(--muted);margin-top:3px}
-.hero{margin:30px 0 20px}
-.ey{color:var(--g);font-size:12px;font-weight:900;letter-spacing:.16em}
-.hero h1{font-size:clamp(42px,9vw,76px);line-height:.91;letter-spacing:-.055em;margin:9px 0 22px}
-.muted{color:var(--muted)}
-.small{font-size:12px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.card{background:#0e1625ed;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 12px 40px #00000018}
-.player{position:relative;overflow:hidden}
-.player:after{content:"";position:absolute;right:-45px;bottom:-75px;width:175px;height:175px;border-radius:50%;background:#55d6be12;pointer-events:none}
-.player.s:after{background:#9b8cff12}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.avatar{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:#14342f;font-size:24px;flex:none}
-.s .avatar{background:#282348}
-.player h2{margin:0;font-size:25px}
-.big{font-size:40px;font-weight:950;line-height:1}
-.bar{height:9px;background:#202c3f;border-radius:99px;overflow:hidden;margin:17px 0 12px}
-.fill{height:100%;width:0;background:var(--g);border-radius:99px;transition:width .25s}
-.s .fill{background:var(--s)}
-.section{margin-top:15px}
-.section h2{margin:0 0 14px}
-.chip{border:1px solid var(--line);background:#0c1422;padding:9px 13px;border-radius:999px;white-space:nowrap}
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
-.metric{background:var(--panel2);border:1px solid var(--line);padding:13px;border-radius:15px}
-.metric b{font-size:22px;display:block;margin-bottom:2px}
-.page{display:none}
-.page.active{display:block}
-.activities{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.activity{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:18px;padding:16px;text-align:left;cursor:pointer;transition:.15s}
-.activity:active{transform:scale(.98)}
-.activity.active{border-color:var(--g);background:#10322d}
-.activity .ico{font-size:28px}
-.activity b{display:block;margin-top:7px}
-.pts{color:var(--g);font-weight:900}
-.scoreToday{text-align:center;padding:20px 0 15px}
-.scoreToday .n{font-size:58px;font-weight:950;line-height:1}
-.btn{border:0;border-radius:14px;padding:13px 18px;font-weight:900;cursor:pointer;background:var(--g);color:#06110e}
-.btn.secondary{background:#202b3d;color:var(--text)}
-textarea{width:100%;padding:13px;border:1px solid var(--line);border-radius:13px;background:#09101b;color:var(--text);outline:none;resize:vertical;min-height:82px}
-.msg{color:var(--gold);margin-top:9px;font-size:12px;min-height:16px}
-.trackGrid{display:grid;grid-template-columns:repeat(10,1fr);gap:7px}
-.cell{aspect-ratio:1;border:1px solid var(--line);border-radius:11px;background:#0a111d;color:var(--muted);display:grid;place-items:center;font-size:11px;font-weight:800;cursor:pointer}
-.cell.done{background:#10352f;border-color:#2b806f;color:#dffff7}
-.cell.today{outline:2px solid var(--gold);outline-offset:1px}
-.week{margin:8px 0}
-.badgegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.badge{border:1px solid var(--line);background:var(--panel2);border-radius:17px;padding:15px}
-.badge .ico{font-size:30px;margin-bottom:7px}
-.badge.locked{opacity:.42;filter:grayscale(1)}
-table{width:100%;border-collapse:collapse}
-td,th{padding:11px;border-bottom:1px solid var(--line);text-align:left}
-.nav{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:10;width:min(1060px,calc(100% - 30px));display:flex;justify-content:space-around;background:#0b1320f2;backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:22px;padding:8px;box-shadow:0 10px 35px #0007}
-.nav button{background:none;border:0;color:var(--muted);font-weight:850;padding:9px 12px;cursor:pointer;border-radius:14px}
-.nav button.active{color:var(--g);background:#10322d66}
-.empty{text-align:center;padding:15px;color:var(--muted)}
-@media(max-width:700px){
- .wrap{padding:17px 15px calc(100px + env(safe-area-inset-bottom))}
- .grid2{grid-template-columns:1fr}
- .trackGrid{grid-template-columns:repeat(5,1fr)}
- .activities{grid-template-columns:repeat(2,1fr)}
- .metrics{grid-template-columns:repeat(2,1fr)}
- .badgegrid{grid-template-columns:repeat(2,1fr)}
- .topRight{min-width:auto}
- .clock{font-size:15px}
- .dateTop,.status{font-size:11px}
- .hero{margin-top:28px}
- .hero h1{font-size:clamp(43px,12vw,65px)}
- .nav{width:calc(100% - 30px);bottom:calc(10px + env(safe-area-inset-bottom))}
- .nav button{font-size:12px;padding:9px 8px}
-}
-</style>
-</head>
-<body>
-<div class="wrap">
-<header class="top">
- <div class="brand">⚡ 100 DAYS</div>
- <div class="topRight">
-  <div class="clock" id="clock">--:--:--</div>
-  <div class="dateTop" id="dateTop">--</div>
-  <div class="status" id="status">● Local</div>
- </div>
-</header>
+:root{--bg:#070b14;--panel:#0e1625;--panel2:#0a111d;--line:#223149;--text:#f4f7ff;--muted:#8fa0b8;--g:#55d6be;--s:#9b8cff;--gold:#ffd166}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(900px 500px at 20% -10%,#1b3150 0,#070b14 62%);color:var(--text);font-family:Inter,system-ui,sans-serif}.wrap{max-width:1120px;margin:auto;padding:18px 15px 110px}.top{display:flex;justify-content:space-between;gap:12px}.brand{font-size:20px;font-weight:950}.clock{text-align:right;font-weight:900}.muted{color:var(--muted)}.small{font-size:12px}.hero{margin:35px 0 22px}.ey{color:var(--g);font-size:12px;font-weight:900;letter-spacing:.15em}.hero h1{font-size:clamp(42px,9vw,76px);line-height:.9;letter-spacing:-.055em;margin:9px 0 18px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.card{background:#0e1625ed;border:1px solid var(--line);border-radius:24px;padding:18px;margin-bottom:15px}.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.player h2{margin:0;font-size:25px}.avatar{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:#14342f;font-size:24px}.s .avatar{background:#282348}.big{font-size:40px;font-weight:950}.bar{height:9px;background:#202c3f;border-radius:99px;overflow:hidden;margin:15px 0}.fill{height:100%;background:var(--g);border-radius:99px}.s .fill{background:var(--s)}.metrics,.roadmap,.badges{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.metric,.phase,.badge{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:13px}.metric b{font-size:22px;display:block}.tabs{display:flex;gap:8px;overflow:auto;margin:10px 0 15px}.tab{border:1px solid var(--line);background:#0c1422;color:var(--text);padding:10px 14px;border-radius:999px;white-space:nowrap;cursor:pointer}.tab.active{border-color:var(--g);color:var(--g)}.panel{display:none}.panel.active{display:block}.phase b{display:block;margin-bottom:6px}.days{color:var(--g);font-weight:900;font-size:12px}.daylist{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.day{border:1px solid var(--line);background:var(--panel2);border-radius:12px;padding:12px;cursor:pointer;color:var(--text);text-align:left}.day:hover{border-color:var(--g)}.day strong{display:block}.status{font-size:11px;color:var(--muted);margin-top:5px}.badge.locked{opacity:.42;filter:grayscale(1)}.badge .ico{font-size:27px}.nav{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:10;width:min(1050px,calc(100% - 30px));display:flex;justify-content:space-around;background:#0b1320f2;backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:22px;padding:8px}.nav button{background:none;border:0;color:var(--muted);font-weight:850;padding:9px 10px;cursor:pointer;border-radius:14px}.nav button.active{color:var(--g);background:#10322d66}a{color:var(--g);text-decoration:none}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}.metrics,.roadmap{grid-template-columns:repeat(2,1fr)}.badges{grid-template-columns:repeat(2,1fr)}.daylist{grid-template-columns:repeat(2,1fr)}.nav button{font-size:11px;padding:9px 6px}.hero{margin-top:28px}}
+</style></head>
+<body><div class="wrap">
+<header class="top"><div class="brand">⚡ GOKUL vs SANGEETH</div><div><div class="clock" id="clock">--:--:--</div><div class="muted small" id="date">--</div></div></header>
+<section class="hero"><div class="ey">100-DAY BUILD CHALLENGE</div><h1>Learn.<br>Build.<br>Ship.</h1><p class="muted">The 100-day challenge is now the roadmap for building your own Mini-Replit.</p></section>
 
-<main>
-<section class="hero">
- <div class="ey">DAY <span id="heroDay">1</span> / 100</div>
- <h1>Learn.<br>Build. Ship.</h1>
- <p class="muted">Every day leaves evidence. Track it in seconds.</p>
+<section class="grid2">
+<article class="card"><div class="row"><div><h2>🚀 Gokul</h2><div class="muted small">Full Stack · AI · Robotics</div></div><strong class="big" id="gScore">0</strong></div><div class="bar"><div class="fill" id="gBar"></div></div><div class="muted small" id="gDays">0 days logged</div></article>
+<article class="card s"><div class="row"><div><h2>🧠 Sangeeth</h2><div class="muted small">AI/Data · Full Stack · SaaS</div></div><strong class="big">0</strong></div><div class="bar"><div class="fill" style="width:0"></div></div><div class="muted small">0 days logged</div></article>
 </section>
 
-<section class="page active" id="home">
- <div class="grid2">
-  <article class="card player">
-   <div class="row"><div class="row"><div class="avatar">🚀</div><div><h2>Gokul</h2><div class="muted small">Full Stack · AI · Robotics</div></div></div><div class="big" id="gScore">0</div></div>
-   <div class="bar"><div class="fill" id="gBar"></div></div><div class="muted small" id="gDays">0 days logged</div>
-  </article>
-  <article class="card player s">
-   <div class="row"><div class="row"><div class="avatar">🧠</div><div><h2>Sangeeth</h2><div class="muted small">AI/Data · Full Stack · SaaS</div></div></div><div class="big" id="sScore">0</div></div>
-   <div class="bar"><div class="fill" id="sBar"></div></div><div class="muted small" id="sDays">0 days logged</div>
-  </article>
- </div>
- <div class="card section">
-  <div class="row"><h2>Challenge pulse</h2><span class="chip" id="remaining">100 days left</span></div>
-  <div class="metrics">
-   <div class="metric"><b id="totalDays">0</b>days logged</div>
-   <div class="metric"><b id="totalPts">0</b>your points</div>
-   <div class="metric"><b id="streak">0</b>day streak</div>
-   <div class="metric"><b>10</b>max / day</div>
-  </div>
- </div>
-</section>
+<section class="card"><div class="row"><h2>Challenge pulse</h2><span class="muted" id="remaining">100 days left</span></div><div class="metrics"><div class="metric"><b id="days">0</b>days logged</div><div class="metric"><b id="points">0</b>points</div><div class="metric"><b id="streak">0</b>day streak</div><div class="metric"><b id="current">1</b>current day</div></div></section>
 
-<section class="page" id="track">
- <div class="card">
-  <div class="row"><h2>Track Day <span id="trackDay">1</span></h2><span class="chip" id="trackDate">Today</span></div>
-  <div class="activities">
-   <button class="activity" data-key="learn" onclick="toggle('learn')"><span class="ico">🧠</span><b>Learn</b><span class="pts">+2</span></button>
-   <button class="activity" data-key="build" onclick="toggle('build')"><span class="ico">💻</span><b>Build</b><span class="pts">+3</span></button>
-   <button class="activity" data-key="tasks" onclick="toggle('tasks')"><span class="ico">🎯</span><b>Task</b><span class="pts">+2</span></button>
-   <button class="activity" data-key="doc" onclick="toggle('doc')"><span class="ico">📝</span><b>Document</b><span class="pts">+1</span></button>
-   <button class="activity" data-key="github" onclick="toggle('github')"><span class="ico">🐙</span><b>GitHub</b><span class="pts">+1</span></button>
-   <button class="activity" data-key="consistency" onclick="toggle('consistency')"><span class="ico">🔥</span><b>Consistency</b><span class="pts">+1</span></button>
-  </div>
-  <div class="scoreToday"><div class="muted">DAY SCORE</div><div class="n" id="todayScore">0</div><button class="btn" onclick="save()">SAVE DAY</button><div id="saveMsg" class="msg"></div></div>
-  <textarea id="notes" placeholder="What did you learn, build, fix or ship?"></textarea>
- </div>
-</section>
-
-<section class="page" id="progress">
- <div class="card"><div class="row"><h2>100-day journey</h2><span class="muted small">Tap a day to edit</span></div><div class="trackGrid" id="timeline"></div></div>
- <div class="card section"><h2>Weekly milestones</h2><div id="weeks"></div></div>
-</section>
-
-<section class="page" id="achievements">
- <div class="card"><h2>Achievements</h2><div class="badgegrid" id="badges"></div></div>
-</section>
-
-<section class="page" id="compare">
- <div class="card">
-  <h2>Progress comparison</h2>
-  <div class="grid2">
-   <div><h3>Gokul</h3><p class="big" id="cg">0</p><div class="bar"><div class="fill" id="cbg"></div></div></div>
-   <div><h3>Sangeeth</h3><p class="big" id="cs">0</p><div class="bar"><div class="fill" id="cbs" style="background:var(--s)"></div></div></div>
-  </div>
-  <table><tr><th>Measure</th><th>Gokul</th><th>Sangeeth</th></tr><tr><td>Days logged</td><td id="gd">0</td><td>0</td></tr><tr><td>Total points</td><td id="gp">0</td><td>0</td></tr></table>
- </div>
-</section>
-</main>
+<div class="tabs">
+<button class="tab active" data-tab="roadmap">🛠 Mini-Replit</button><button class="tab" data-tab="days">📅 100 Days</button><button class="tab" data-tab="progress">📈 Progress</button><button class="tab" data-tab="awards">🏆 Awards</button>
 </div>
 
-<nav class="nav">
- <button type="button" class="active" data-page="home">⌂ Home</button>
- <button type="button" data-page="track">✓ Track</button>
- <button type="button" data-page="progress">◉ Progress</button>
- <button type="button" data-page="achievements">🏆 Awards</button>
- <button type="button" data-page="compare">⇄ Compare</button>
-</nav>
+<section id="roadmap" class="panel active"><div class="card"><div class="row"><h2>Mini-Replit roadmap</h2><span class="days">DAY 1 → 100</span></div><p class="muted">One product, built incrementally throughout the challenge.</p><div class="roadmap">
+<div class="phase"><b>🟢 Foundation</b><span class="days">1–10</span><div class="small muted">Next.js, TypeScript, dashboard, project creation.</div></div>
+<div class="phase"><b>🟢 Editor</b><span class="days">11–20</span><div class="small muted">Files, tabs, editor, save/load.</div></div>
+<div class="phase"><b>🟡 Runtime</b><span class="days">21–30</span><div class="small muted">Run projects, processes, terminal foundation.</div></div>
+<div class="phase"><b>🟡 Preview</b><span class="days">31–40</span><div class="small muted">Live preview, ports, reload, errors.</div></div>
+<div class="phase"><b>🔵 GitHub</b><span class="days">41–50</span><div class="small muted">Import, edit, commit and sync repositories.</div></div>
+<div class="phase"><b>🔵 Vercel</b><span class="days">51–60</span><div class="small muted">Deploy projects and show deployment status.</div></div>
+<div class="phase"><b>🟣 Workspace</b><span class="days">61–70</span><div class="small muted">Projects, settings, secrets and metadata.</div></div>
+<div class="phase"><b>🟣 AI Foundation</b><span class="days">71–80</span><div class="small muted">AI chat, code generation and edits.</div></div>
+<div class="phase"><b>🟠 AI Agent</b><span class="days">81–90</span><div class="small muted">Build → run → diagnose → fix workflow.</div></div>
+<div class="phase"><b>🔴 Release</b><span class="days">91–100</span><div class="small muted">Security, testing, UX, docs and production release.</div></div>
+</div></div></section>
 
+<section id="days" class="panel"><div class="card"><div class="row"><h2>100-day plan</h2><span class="muted small">Tap a day</span></div><div class="daylist" id="daylist"></div></div></section>
+<section id="progress" class="panel"><div class="card"><h2>Build progress</h2><p class="muted">Progress is based on your saved daily tracker data.</p><div class="bar"><div class="fill" id="progressBar"></div></div><div class="metrics"><div class="metric"><b id="builtDays">0</b>challenge days</div><div class="metric"><b id="shipPoints">0</b>earned points</div><div class="metric"><b id="githubDays">0</b>GitHub days</div><div class="metric"><b id="buildDays">0</b>build days</div></div></div></section>
+<section id="awards" class="panel"><div class="card"><h2>Achievements</h2><div class="badges" id="badges"></div></div></section>
+</div>
+<nav class="nav"><button class="active" data-tab="roadmap">Build</button><button data-tab="days">Days</button><button data-tab="progress">Progress</button><button data-tab="awards">Awards</button></nav>
 <script>
+const START=Date.UTC(2026,8,23),KEYS=["learn","build","tasks","doc","github","consistency"];
 const $=id=>document.getElementById(id);
-const START=Date.UTC(2026,8,23);
-const KEYS=["learn","build","tasks","doc","github","consistency"];
-let selectedDay=1;
-let draft={learn:0,build:0,tasks:0,doc:0,github:0,consistency:0};
-
-function istNow(){
- const parts=new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Kolkata",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
- const get=t=>parts.find(x=>x.type===t).value;
- return {date:get("year")+"-"+get("month")+"-"+get("day")};
-}
-function dayNo(){
- const d=istNow().date.split("-").map(Number);
- return Math.max(1,Math.min(100,Math.floor((Date.UTC(d[0],d[1]-1,d[2])-START)/86400000)+1));
-}
+function istDate(){return new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Kolkata",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date())}
+function dayNo(){let d=istDate().split("-").map(Number);return Math.max(1,Math.min(100,Math.floor((Date.UTC(d[0],d[1]-1,d[2])-START)/86400000)+1))}
+function row(n){try{return JSON.parse(localStorage.getItem("challenge-day-"+n)||"null")}catch{return null}}
+function rows(){return Array.from({length:100},(_,i)=>row(i+1)).filter(Boolean)}
 function score(r){return KEYS.reduce((a,k)=>a+(Number(r[k])||0),0)}
-function key(n){return "challenge-day-"+n}
-function getRow(n){try{return JSON.parse(localStorage.getItem(key(n))||"null")}catch{return null}}
-function allRows(){const a=[];for(let i=1;i<=100;i++){const r=getRow(i);if(r)a.push({...r,day:i})}return a}
-function page(id,button){
- document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
- const target=$(id);if(target)target.classList.add("active");
- document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
- if(button)button.classList.add("active");
- scrollTo({top:0,behavior:"smooth"});
-}
-function toggle(k){
- draft[k]=draft[k]?0:(k==="build"?3:(k==="learn"||k==="tasks"?2:1));
- document.querySelectorAll(".activity").forEach(x=>x.classList.toggle("active",!!draft[x.dataset.key]));
- $("todayScore").textContent=score(draft);
-}
-function loadDay(n){
- selectedDay=Math.max(1,Math.min(100,Number(n)||1));
- const saved=getRow(selectedDay);
- draft={learn:0,build:0,tasks:0,doc:0,github:0,consistency:0};
- if(saved){KEYS.forEach(k=>draft[k]=Number(saved[k])||0);$("notes").value=saved.notes||""}
- else $("notes").value="";
- $("heroDay").textContent=selectedDay;
- $("trackDay").textContent=selectedDay;
- $("trackDate").textContent=selectedDay===dayNo()?"Today":"Day "+selectedDay;
- document.querySelectorAll(".activity").forEach(x=>x.classList.toggle("active",!!draft[x.dataset.key]));
- $("todayScore").textContent=score(draft);
-}
-function setDay(n){loadDay(n);page("track",document.querySelector('[data-page="track"]'))}
-function save(){
- const obj={day:selectedDay,challenge_date:selectedDay===dayNo()?istNow().date:(getRow(selectedDay)?.challenge_date||""),...draft,notes:$("notes").value.trim()};
- localStorage.setItem(key(selectedDay),JSON.stringify(obj));
- $("saveMsg").textContent="Saved Day "+selectedDay+" · "+score(obj)+" points";
- render();
- loadDay(selectedDay);
- setTimeout(()=>$("saveMsg").textContent="",2200);
-}
-function render(){
- const rows=allRows(),total=rows.reduce((a,r)=>a+score(r),0),days=rows.length;
- $("gScore").textContent=total;$("gDays").textContent=days+" days logged";$("gBar").style.width=Math.min(100,total/10)+"%";
- $("sScore").textContent=0;$("sDays").textContent="0 days logged";$("sBar").style.width="0%";
- $("cg").textContent=total;$("cs").textContent=0;$("cbg").style.width=Math.min(100,total/10)+"%";$("cbs").style.width="0%";
- $("gd").textContent=days;$("gp").textContent=total;$("totalDays").textContent=days;$("totalPts").textContent=total;$("remaining").textContent=Math.max(0,100-days)+" days left";
- let streak=0;for(let i=dayNo();i>=1;i--){if(rows.some(r=>r.day===i))streak++;else break}$("streak").textContent=streak;
- $("timeline").innerHTML=Array.from({length:100},(_,i)=>{const n=i+1,done=!!getRow(n);return '<button type="button" class="cell '+(done?"done ":"")+(n===dayNo()?"today":"")+'" onclick="setDay('+n+')">D'+n+"</button>"}).join("");
- $("weeks").innerHTML=Array.from({length:14},(_,i)=>{const w=i+1,n=rows.filter(r=>Math.ceil(r.day/7)===w).length;return '<div class="metric week"><b>Week '+w+'</b>'+n+"/7 days logged</div>"}).join("");
- const badges=[
-  ["🌱","First Day",days>=1],["🔥","7-Day Streak",streak>=7],["💻","Builder",rows.some(r=>r.build>=3)],["🐙","GitHub Active",rows.some(r=>r.github>=1)],
-  ["🚀","Ship It",total>=50],["⚡","Technology Explorer",days>=10],["🤝","Team Player",false],["🏆","100-Day Finisher",days>=100]
- ];
- $("badges").innerHTML=badges.map(b=>'<div class="badge '+(b[2]?"":"locked")+'"><div class="ico">'+b[0]+'</div><b>'+b[1]+'</b><div class="muted small">'+(b[2]?"Unlocked":"Locked")+"</div></div>").join("");
-}
-function updateClock(){
- const now=new Date();
- $("clock").textContent=now.toLocaleTimeString("en-IN",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true});
- $("dateTop").textContent=now.toLocaleDateString("en-IN",{timeZone:"Asia/Kolkata",weekday:"short",day:"2-digit",month:"short",year:"numeric"});
-}
-document.querySelectorAll(".nav button[data-page]").forEach(btn=>btn.addEventListener("click",()=>page(btn.dataset.page,btn)));
-loadDay(dayNo());render();updateClock();setInterval(updateClock,1000);
-</script>
-</body>
-</html>
+function render(){let rs=rows(),pts=rs.reduce((a,r)=>a+score(r),0),d=rs.length,cur=dayNo();$("gScore").textContent=pts;$("gDays").textContent=d+" days logged";$("gBar").style.width=Math.min(100,pts/10)+"%";$("days").textContent=d;$("points").textContent=pts;$("current").textContent=cur;$("remaining").textContent=Math.max(0,100-d)+" days left";let st=0;for(let n=cur;n>=1;n--){if(row(n))st++;else break}$("streak").textContent=st;$("progressBar").style.width=(d)+"%";$("builtDays").textContent=d;$("shipPoints").textContent=pts;$("githubDays").textContent=rs.filter(r=>r.github).length;$("buildDays").textContent=rs.filter(r=>r.build).length;
+let titles=["Foundation: app shell","Project creation","Dashboard","Navigation","Project model","Create project form","Workspace layout","Responsive UI","State management","Foundation review","Editor: file tree","Editor tabs","Code editing","Save files","Load files","Editor UX","File operations","Unsaved state","Editor testing","Editor milestone","Runtime: run command","Process state","Run button","Runtime logs","Error handling","Stop/restart","Command safety","Runtime API","Runtime testing","Runtime milestone","Preview: live iframe","Preview URL","Port model","Reload","Preview errors","Status indicator","Responsive preview","Preview UX","Preview testing","Preview milestone","GitHub: auth","Repository import","Read files","Write files","Commit changes","Branch basics","Sync status","GitHub errors","GitHub testing","GitHub milestone","Vercel: project link","Deployment request","Build status","Deployment logs","Production URL","Redeploy","Environment variables","Deployment errors","Vercel testing","Vercel milestone","Workspace: projects","Project settings","Secrets UI","Project metadata","Workspace navigation","Recent projects","Delete/archive flow","Access boundaries","Workspace testing","Workspace milestone","AI: chat UI","Prompt to code","Code explanation","File-aware context","Patch generation","AI edit preview","Accept/reject edits","AI error handling","AI testing","AI milestone","Agent: task planning","Multi-file changes","Run after edit","Read errors","Auto-fix loop","Task status","Agent guardrails","Long task UX","Agent testing","Agent milestone","Release: security","Input validation","Secrets audit","Runtime isolation review","GitHub safety","Vercel safety","Performance pass","Mobile UX pass","Documentation","Production checklist","Day 100 release"];
+$("daylist").innerHTML=Array.from({length:100},(_,i)=>{let n=i+1,r=row(n);return '<button class="day" onclick="alertDay('+n+')"><strong>Day '+n+'</strong><span class="days">'+titles[i]+'</span><div class="status">'+(r?"✓ Logged":"○ Not logged")+'</div></button>'}).join("");
+let total=pts;let badges=[["🌱","Day 1",d>=1],["🔥","7-day streak",st>=7],["💻","Builder",rs.some(r=>r.build)],["🐙","GitHub active",rs.some(r=>r.github)],["🚀","50 points",total>=50],["⚡","10-day builder",d>=10],["🌐","First deployment",d>=60],["🤖","AI agent",d>=90],["🏆","100-day finisher",d>=100]];$("badges").innerHTML=badges.map(b=>'<div class="badge '+(b[2]?"":"locked")+'"><div class="ico">'+b[0]+'</div><b>'+b[1]+'</b><div class="small muted">'+(b[2]?"Unlocked":"Locked")+'</div></div>').join("")}
+function alertDay(n){let r=row(n);alert("Day "+n+"\n\n"+(r?"Logged: "+score(r)+" points":"Not logged yet")+(n<=10?"\n\nMini-Replit phase: Foundation":n<=20?"\n\nMini-Replit phase: Editor":n<=30?"\n\nMini-Replit phase: Runtime":n<=40?"\n\nMini-Replit phase: Preview":n<=50?"\n\nMini-Replit phase: GitHub":n<=60?"\n\nMini-Replit phase: Vercel":n<=70?"\n\nMini-Replit phase: Workspace":n<=80?"\n\nMini-Replit phase: AI Foundation":n<=90?"\n\nMini-Replit phase: AI Agent":"\n\nMini-Replit phase: Release"))}
+document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>{document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));document.getElementById(b.dataset.tab).classList.add("active");document.querySelectorAll("[data-tab]").forEach(x=>x.classList.toggle("active",x.dataset.tab===b.dataset.tab))});
+function clock(){let n=new Date();$("clock").textContent=n.toLocaleTimeString("en-IN",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true});$("date").textContent=n.toLocaleDateString("en-IN",{timeZone:"Asia/Kolkata",weekday:"short",day:"2-digit",month:"short",year:"numeric"})}
+render();clock();setInterval(clock,1000);
+</script></body></html>
