@@ -42,19 +42,115 @@
 <div class="nav"><button type="button" class="active" data-page="home">⌂ Home</button><button type="button" data-page="track">✓ Track</button><button type="button" data-page="progress">◉ Progress</button><button type="button" data-page="achievements">🏆 Awards</button><button type="button" data-page="compare">⇄ Compare</button></div>
 </main></div>
 <script>
-const URL="https://hvnasippwadzygnaodpp.supabase.co",KEY="sb_publishable_ZFFW9ifODSHTwOPlOBWhqw_G8H7FACO",db=supabase.createClient(URL,KEY);
-let user=null,rows=[],profiles=[],draft={learn:0,build:0,tasks:0,doc:0,github:0,consistency:0};const $=x=>document.getElementById(x),start=new Date("2026-09-23T00:00:00");
-function dayNo(date=new Date()){return Math.floor((new Date(date.toISOString().slice(0,10)+"T00:00:00")-start)/86400000)+1}
-function score(r){return ["learn","build","tasks","doc","github","consistency"].reduce((a,k)=>a+(+r[k]||0),0)}
-function page(id,b){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));const target=document.getElementById(id);if(target)target.classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));if(b)b.classList.add("active");window.scrollTo({top:0,behavior:"smooth"})}
-function toggle(k){draft[k]=draft[k]?0:(k==="build"?3:k==="learn"||k==="tasks"?2:1);document.querySelectorAll(".activity").forEach(x=>x.classList.toggle("active",!!draft[x.dataset.key]));$("todayScore").textContent=score(draft)}
-function msg(id,t){$(id).textContent=t}
-async function init(){user={id:"local"};$("app").classList.remove("hidden");$("status").textContent="● Live";await load();setDay(dayNo())}
-async function load(){const a=await db.from("challenge_days").select("*").order("day");const b=await db.from("challenge_profiles").select("*");rows=a.data||[];profiles=b.data||[];for(let i=1;i<=100;i++){const x=JSON.parse(localStorage.getItem("challenge-day-"+i)||"null");if(x){x.user_id="local";rows.push(x)}}render()}
-function who(uid){if(uid==="local")return"g";const p=profiles.find(x=>x.id===uid),n=(p?.display_name||"").toLowerCase();return n.includes("sangeeth")?"s":n.includes("gokul")?"g":null}
-function setDay(n){$("heroDay").textContent=n;$("trackDay").textContent=n;draft={learn:0,build:0,tasks:0,doc:0,github:0,consistency:0};const x=JSON.parse(localStorage.getItem("challenge-day-"+n)||"null");if(x){["learn","build","tasks","doc","github","consistency"].forEach(k=>draft[k]=+x[k]||0);$("notes").value=x.notes||""}else $("notes").value="";document.querySelectorAll(".activity").forEach(x=>x.classList.toggle("active",!!draft[x.dataset.key]));$("todayScore").textContent=score(draft)}
-function render(){let t={g:0,s:0},c={g:0,s:0};rows.forEach(r=>{const k=who(r.user_id);if(k){t[k]+=score(r);c[k]++}});for(const k of ["g","s"]){$(k+"Score").textContent=t[k];$(k+"Days").textContent=c[k]+" days logged";$(k+"Bar").style.width=Math.min(100,t[k]/10)+"%"}$("cg").textContent=t.g;$("cs").textContent=t.s;$("cbg").style.width=Math.min(100,t.g/10)+"%";$("cbs").style.width=Math.min(100,t.s/10)+"%";$("gd").textContent=c.g;$("sd").textContent=c.s;$("gp").textContent=t.g;$("sp").textContent=t.s;const mine=rows.filter(r=>r.user_id===user?.id);$("totalDays").textContent=mine.length;$("totalPts").textContent=mine.reduce((a,r)=>a+score(r),0);$("remaining").textContent=Math.max(0,100-mine.length)+" days left";let streak=0;for(let i=dayNo();i>=1;i--){if(mine.some(r=>r.day===i))streak++;else break}$("streak").textContent=streak;let html="";for(let i=1;i<=100;i++){const r=mine.find(x=>x.day===i);html+=`<button class="cell ${r?"done":""} ${i===dayNo()?"today":""}" onclick="setDay(${i})">D${i}</button>`}$("timeline").innerHTML=html;let wh="";for(let w=1;w<=14;w++){const n=rows.filter(r=>r.user_id===user?.id&&Math.ceil(r.day/7)===w).length;wh+=`<div class="metric" style="margin:8px 0"><b>Week ${w}</b>${n}/7 days logged</div>`}$("weeks").innerHTML=wh;const badges=[["🌱","First Day",mine.length>=1],["🔥","7-Day Streak",streak>=7],["💻","Builder",mine.some(r=>r.build>=3)],["🐙","GitHub Active",mine.some(r=>r.github>=1)],["🚀","Ship It",mine.reduce((a,r)=>a+score(r),0)>=50],["⚡","Technology Explorer",mine.length>=10],["🤝","Team Player",false],["🏆","100-Day Finisher",mine.length>=100]];$("badges").innerHTML=badges.map(b=>`<div class="badge ${b[2]?"":"locked"}"><div class="ico">${b[0]}</div><b>${b[1]}</b><div class="muted small">${b[2]?"Unlocked":"Locked"}</div></div>`).join("")}
-async function save(){const d=dayNo();const key="challenge-day-"+d;const local=JSON.parse(localStorage.getItem(key)||"null");const obj={day:d,challenge_date:new Date().toISOString().slice(0,10),...draft,notes:$("notes").value.trim()};localStorage.setItem(key,JSON.stringify(obj));msg("saveMsg","Saved Day "+d+" · "+score(obj)+" points");await load()}
-document.querySelectorAll(".nav button[data-page]").forEach(btn=>btn.addEventListener("click",()=>page(btn.dataset.page,btn)));
-init()
-function updateClock(){const d=new Date();$("clock").textContent=d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true});$("dateTop").textContent=d.toLocaleDateString("en-IN",{weekday:"short",day:"2-digit",month:"short",year:"numeric"});}updateClock();setInterval(updateClock,1000);</script></body></html>
+const $=id=>document.getElementById(id);
+const start=new Date("2026-09-23T00:00:00");
+let draft={learn:0,build:0,tasks:0,doc:0,github:0,consistency:0};
+
+function dayNo(date=new Date()){
+  const d=new Date(date.toISOString().slice(0,10)+"T00:00:00");
+  return Math.max(1,Math.min(100,Math.floor((d-start)/86400000)+1));
+}
+function score(r){
+  return ["learn","build","tasks","doc","github","consistency"].reduce((a,k)=>a+(Number(r[k])||0),0);
+}
+function page(id,button){
+  document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+  const target=$(id); if(target) target.classList.add("active");
+  document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
+  if(button) button.classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function toggle(k){
+  draft[k]=draft[k]?0:(k==="build"?3:(k==="learn"||k==="tasks"?2:1));
+  document.querySelectorAll(".activity").forEach(x=>x.classList.toggle("active",!!draft[x.dataset.key]));
+  $("todayScore").textContent=score(draft);
+}
+function msg(id,text){const e=$(id);if(e)e.textContent=text;}
+function loadDay(n){
+  draft={learn:0,build:0,tasks:0,doc:0,github:0,consistency:0};
+  const saved=JSON.parse(localStorage.getItem("challenge-day-"+n)||"null");
+  if(saved){
+    Object.keys(draft).forEach(k=>draft[k]=Number(saved[k])||0);
+    $("notes").value=saved.notes||"";
+  }else $("notes").value="";
+  $("heroDay").textContent=n;
+  $("trackDay").textContent=n;
+  document.querySelectorAll(".activity").forEach(x=>x.classList.toggle("active",!!draft[x.dataset.key]));
+  $("todayScore").textContent=score(draft);
+}
+function setDay(n){loadDay(Math.max(1,Math.min(100,Number(n)||1)));page("track",document.querySelector('[data-page="track"]'));}
+function allLocalRows(){
+  const out=[];
+  for(let i=1;i<=100;i++){
+    const x=JSON.parse(localStorage.getItem("challenge-day-"+i)||"null");
+    if(x) out.push({...x,day:i});
+  }
+  return out;
+}
+function render(){
+  const rows=allLocalRows();
+  const total=rows.reduce((a,r)=>a+score(r),0);
+  const days=rows.length;
+  $("gScore").textContent=total;
+  $("gDays").textContent=days+" days logged";
+  $("gBar").style.width=Math.min(100,total/10)+"%";
+  $("sScore").textContent=0;
+  $("sDays").textContent="0 days logged";
+  $("sBar").style.width="0%";
+  $("cg").textContent=total;
+  $("cs").textContent=0;
+  $("cbg").style.width=Math.min(100,total/10)+"%";
+  $("cbs").style.width="0%";
+  $("gd").textContent=days;$("sd").textContent=0;
+  $("gp").textContent=total;$("sp").textContent=0;
+  $("totalDays").textContent=days;
+  $("totalPts").textContent=total;
+  $("remaining").textContent=Math.max(0,100-days)+" days left";
+  let streak=0;
+  for(let i=dayNo();i>=1;i--){if(rows.some(r=>r.day===i))streak++;else break;}
+  $("streak").textContent=streak;
+  let html="";
+  for(let i=1;i<=100;i++){
+    const done=rows.some(r=>r.day===i);
+    html+=`<button type="button" class="cell ${done?"done":""} ${i===dayNo()?"today":""}" onclick="setDay(${i})">D${i}</button>`;
+  }
+  $("timeline").innerHTML=html;
+  let weeks="";
+  for(let w=1;w<=14;w++){
+    const n=rows.filter(r=>Math.ceil(r.day/7)===w).length;
+    weeks+=`<div class="metric" style="margin:8px 0"><b>Week ${w}</b>${n}/7 days logged</div>`;
+  }
+  $("weeks").innerHTML=weeks;
+  const badges=[
+    ["🌱","First Day",days>=1],["🔥","7-Day Streak",streak>=7],
+    ["💻","Builder",rows.some(r=>r.build>=3)],["🐙","GitHub Active",rows.some(r=>r.github>=1)],
+    ["🚀","Ship It",total>=50],["⚡","Technology Explorer",days>=10],
+    ["🤝","Team Player",false],["🏆","100-Day Finisher",days>=100]
+  ];
+  $("badges").innerHTML=badges.map(b=>`<div class="badge ${b[2]?"":"locked"}"><div class="ico">${b[0]}</div><b>${b[1]}</b><div class="muted small">${b[2]?"Unlocked":"Locked"}</div></div>`).join("");
+}
+function save(){
+  const d=dayNo();
+  const obj={day:d,challenge_date:new Date().toISOString().slice(0,10),...draft,notes:$("notes").value.trim()};
+  localStorage.setItem("challenge-day-"+d,JSON.stringify(obj));
+  msg("saveMsg","Saved Day "+d+" · "+score(obj)+" points");
+  render();
+  loadDay(d);
+}
+function updateClock(){
+  const d=new Date();
+  $("clock").textContent=d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true});
+  $("dateTop").textContent=d.toLocaleDateString("en-IN",{weekday:"short",day:"2-digit",month:"short",year:"numeric"});
+}
+document.querySelectorAll(".nav button[data-page]").forEach(btn=>{
+  btn.addEventListener("click",()=>page(btn.dataset.page,btn));
+});
+document.addEventListener("DOMContentLoaded",()=>{
+  $("status").textContent="● Local";
+  const today=dayNo();
+  loadDay(today);
+  render();
+  updateClock();
+  setInterval(updateClock,1000);
+});
+</script></body></html>
