@@ -139,8 +139,8 @@ function save(){
 }
 function updateClock(){
   const d=new Date();
-  $("clock").textContent=d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true});
-  $("dateTop").textContent=d.toLocaleDateString("en-IN",{weekday:"short",day:"2-digit",month:"short",year:"numeric"});
+  $("clock").textContent=d.toLocaleTimeString("en-IN",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true});
+  $("dateTop").textContent=d.toLocaleDateString("en-IN",{timeZone:"Asia/Kolkata",weekday:"short",day:"2-digit",month:"short",year:"numeric"});
 }
 document.querySelectorAll(".nav button[data-page]").forEach(btn=>{
   btn.addEventListener("click",()=>page(btn.dataset.page,btn));
