@@ -1,75 +1,62 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Gokul × Sangeeth — 100 Day Challenge</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>100 Days — Track</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#070b14;--card:#101827;--line:#243149;--text:#eef4ff;--muted:#8ea0bb;--a:#55d6be;--b:#8c7cff;--warn:#ffd166}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0,#1b2945 0,#070b14 38%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}.wrap{max-width:1100px;margin:auto;padding:22px 15px 60px}.top{display:flex;justify-content:space-between;gap:15px;align-items:start}.ey{color:var(--a);font-size:12px;font-weight:900;letter-spacing:.12em}.hero h1{font-size:clamp(38px,7vw,68px);line-height:.94;margin:10px 0}.hero p,.sub{color:var(--muted)}.pill{background:#0d1523;border:1px solid var(--line);padding:10px 14px;border-radius:999px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:22px}.card{background:#101827ee;border:1px solid var(--line);border-radius:20px;padding:19px}.name{display:flex;justify-content:space-between;align-items:center}.name h2{margin:0}.score{font-size:34px;font-weight:900}.bar{height:10px;background:#222d40;border-radius:99px;overflow:hidden;margin:14px 0}.fill{height:100%;background:var(--a);width:0}.s .fill{background:var(--b)}.section{margin-top:18px}.form{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.full{grid-column:1/-1}input,select,textarea{width:100%;padding:11px;margin-top:5px;border-radius:10px;border:1px solid var(--line);background:#0b111c;color:var(--text)}textarea{min-height:80px}.btn{border:0;border-radius:11px;padding:11px 15px;font-weight:800;background:var(--a);cursor:pointer}.btn.alt{background:#202b3e;color:var(--text)}.actions{display:flex;gap:9px;flex-wrap:wrap}.msg{margin-top:10px;color:var(--warn)}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:11px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-size:12px}.hidden{display:none}.timeline{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}.day{font-size:11px;text-align:center;padding:8px 2px;border:1px solid var(--line);border-radius:8px;color:var(--muted)}.day.done{background:#10322c;color:#dffff7;border-color:#2a8e7c}.today{outline:2px solid var(--warn)}.auth{max-width:520px;margin:30px auto}.statline{display:flex;gap:10px;flex-wrap:wrap}.mini{background:#0b111c;border:1px solid var(--line);border-radius:12px;padding:10px}.mini b{font-size:18px;display:block}@media(max-width:700px){.top{display:block}.grid,.form{grid-template-columns:1fr}.timeline{grid-template-columns:repeat(5,1fr)}}
-</style>
-</head>
-<body>
-<div class="wrap">
-<header class="top"><div class="hero"><div class="ey">100-DAY BUILD CHALLENGE</div><h1>Learn. Build. Ship.</h1><p>23 Sep 2026 → 1 Jan 2027 · Gokul × Sangeeth</p></div><div class="pill" id="status">Sign in to track</div></header>
-
-<section id="auth" class="card auth">
-<h2>Join the challenge</h2><p class="sub">Create an account or sign in. Your entries sync through Supabase.</p>
-<div class="form">
-<div><label>Email</label><input id="email" type="email" autocomplete="email"></div>
-<div><label>Password</label><input id="password" type="password" autocomplete="current-password"></div>
-<div class="full"><label>Display name</label><input id="display" placeholder="Gokul or Sangeeth"></div>
-<div class="full actions"><button class="btn" onclick="signup()">Create account</button><button class="btn alt" onclick="login()">Sign in</button></div>
-</div><div class="msg" id="msg"></div>
-</section>
-
+:root{--bg:#070b14;--panel:#0e1625;--panel2:#111c2e;--line:#223149;--text:#f4f7ff;--muted:#8fa0b8;--g:#55d6be;--s:#9b8cff;--gold:#ffd166;--danger:#ff6b7a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 20% -10%,#1b3150 0,#070b14 60%);color:var(--text);font-family:Inter,system-ui,sans-serif}.wrap{max-width:1100px;margin:auto;padding:18px 15px 100px}.top{display:flex;justify-content:space-between;align-items:center}.brand{font-weight:950;font-size:20px}.ey{color:var(--g);font-size:11px;font-weight:900;letter-spacing:.16em}.hero{margin:30px 0 20px}.hero h1{font-size:clamp(38px,8vw,72px);line-height:.92;margin:8px 0}.muted{color:var(--muted)}.chip{border:1px solid var(--line);background:#0c1422;padding:9px 13px;border-radius:999px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.card{background:#0e1625ed;border:1px solid var(--line);border-radius:22px;padding:18px}.player{position:relative;overflow:hidden}.player:after{content:"";position:absolute;inset:auto -40px -70px auto;width:160px;height:160px;border-radius:50%;background:#55d6be14}.player.s:after{background:#9b8cff14}.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.avatar{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:#14342f;font-size:23px}.s .avatar{background:#282348}.player h2{margin:0}.big{font-size:38px;font-weight:950}.bar{height:9px;background:#202c3f;border-radius:99px;overflow:hidden;margin:14px 0}.fill{height:100%;width:0;background:var(--g)}.s .fill{background:var(--s)}.section{margin-top:15px}.section h2{margin:0 0 14px}.track{display:grid;grid-template-columns:repeat(10,1fr);gap:7px}.cell{aspect-ratio:1;border:1px solid var(--line);border-radius:11px;background:#0a111d;color:var(--muted);display:grid;place-items:center;font-size:11px;font-weight:800;cursor:pointer}.cell.done{background:#10352f;border-color:#2b806f;color:#dffff7}.cell.today{outline:2px solid var(--gold)}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.metric{background:#0a111d;border:1px solid var(--line);padding:12px;border-radius:14px}.metric b{font-size:21px;display:block}.activities{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.activity{border:1px solid var(--line);background:#0a111d;color:var(--text);border-radius:17px;padding:16px;text-align:left;cursor:pointer;transition:.15s}.activity.active{border-color:var(--g);background:#10322d;transform:translateY(-2px)}.activity .ico{font-size:28px}.activity b{display:block;margin-top:7px}.pts{color:var(--g);font-weight:900}.sfield{display:grid;grid-template-columns:1fr 1fr;gap:10px}input,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:#09101b;color:var(--text);outline:none}textarea{min-height:78px;resize:vertical}.btn{border:0;border-radius:13px;padding:12px 17px;font-weight:900;cursor:pointer;background:var(--g);color:#06110e}.btn.secondary{background:#202b3d;color:var(--text)}.actions{display:flex;gap:9px;flex-wrap:wrap}.scoreToday{text-align:center;padding:20px}.scoreToday .n{font-size:55px;font-weight:950}.auth{max-width:520px;margin:35px auto}.hidden{display:none}.msg{color:var(--gold);margin-top:9px}.nav{position:sticky;bottom:12px;z-index:4;display:flex;justify-content:space-around;background:#0b1320f2;backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:20px;padding:9px;margin-top:18px}.nav button{background:none;border:0;color:var(--muted);font-weight:800;padding:8px 12px;cursor:pointer}.nav button.active{color:var(--g)}.page{display:none}.page.active{display:block}.badgegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.badge{border:1px solid var(--line);background:#0a111d;border-radius:17px;padding:15px}.badge .ico{font-size:30px}.badge.locked{opacity:.45;filter:grayscale(1)}table{width:100%;border-collapse:collapse}td,th{padding:11px;border-bottom:1px solid var(--line);text-align:left}.small{font-size:12px}@media(max-width:700px){.grid2,.sfield{grid-template-columns:1fr}.track{grid-template-columns:repeat(5,1fr)}.activities{grid-template-columns:repeat(2,1fr)}.metrics{grid-template-columns:repeat(2,1fr)}.badgegrid{grid-template-columns:repeat(2,1fr)}.top .chip{display:none}}
+</style></head>
+<body><div class="wrap">
+<header class="top"><div class="brand">⚡ 100 DAYS</div><div class="chip" id="status">Offline</div></header>
+<section id="auth" class="card auth"><div class="ey">GOKUL × SANGEETH</div><h1>Track the build.</h1><p class="muted">23 Sep 2026 → 1 Jan 2027</p><div class="sfield"><div><label>Email</label><input id="email" type="email"></div><div><label>Password</label><input id="password" type="password"></div></div><p><input id="display" placeholder="Display name: Gokul or Sangeeth"></p><div class="actions"><button class="btn" onclick="signup()">Create account</button><button class="btn secondary" onclick="login()">Sign in</button></div><div id="msg" class="msg"></div></section>
 <main id="app" class="hidden">
-<section class="grid">
-<article class="card player"><div class="name"><div><h2>Gokul</h2><div class="sub">Full Stack · AI · Robotics · AgriTech</div></div><div class="score" id="gScore">0</div></div><div class="bar"><div class="fill" id="gBar"></div></div><div class="sub" id="gDays">0 days logged</div></article>
-<article class="card player s"><div class="name"><div><h2>Sangeeth</h2><div class="sub">AI/Data Science · Full Stack · SaaS</div></div><div class="score" id="sScore">0</div></div><div class="bar"><div class="fill" id="sBar"></div></div><div class="sub" id="sDays">0 days logged</div></article>
-</section>
-
-<section class="card section"><h2>Daily entry</h2>
-<div class="form">
-<div><label>Day</label><input id="day" type="number" min="1" max="100" value="1"></div>
-<div><label>Date</label><input id="date" type="date"></div>
-<div><label>Learn +2</label><input id="learn" type="number" min="0" max="2" value="2"></div>
-<div><label>Build +3</label><input id="build" type="number" min="0" max="3" value="3"></div>
-<div><label>Meaningful task +2</label><input id="tasks" type="number" min="0" max="2" value="2"></div>
-<div><label>Document/share +1</label><input id="doc" type="number" min="0" max="1" value="1"></div>
-<div><label>GitHub/project +1</label><input id="github" type="number" min="0" max="1" value="1"></div>
-<div><label>Consistency +1</label><input id="cons" type="number" min="0" max="1" value="1"></div>
-<div class="full"><label>Notes / what you built</label><textarea id="notes" placeholder="What did you learn, build, fix or ship today?"></textarea></div>
-<div class="full actions"><button class="btn" onclick="save()">Save entry</button><button class="btn alt" onclick="logout()">Sign out</button></div>
-</div><div class="msg" id="saveMsg"></div></section>
-
-<section class="card section"><h2>100-day progress</h2><div class="timeline" id="timeline"></div></section>
-<section class="card section"><h2>Scoring</h2><table><tr><th>Action</th><th>Points</th></tr><tr><td>Learn a new concept</td><td>+2</td></tr><tr><td>Practice / code / build</td><td>+3</td></tr><tr><td>Meaningful task</td><td>+2</td></tr><tr><td>Document / share</td><td>+1</td></tr><tr><td>GitHub / project contribution</td><td>+1</td></tr><tr><td>Daily consistency</td><td>+1</td></tr></table><p class="sub">Planned bonuses: mini-project +10, major project +25, new technology +5, hackathon/event +10, help friend +3, published demo +5.</p></section>
-
-<section class="card section"><h2>Challenge rules</h2><div class="statline"><div class="mini"><b>100</b>days</div><div class="mini"><b>10</b>base points/day</div><div class="mini"><b>1000</b>base-point maximum</div></div><p class="sub">Use the tracker to record evidence of learning and building. Scores are only a tracking system; the real goal is measurable skill growth.</p></section>
-</main>
+<div class="hero"><div class="ey">DAY <span id="heroDay">1</span> / 100</div><h1>Learn.<br>Build. Ship.</h1><p class="muted">Every day leaves evidence. Track it in seconds.</p></div>
+<div class="page active" id="home">
+<div class="grid2">
+<article class="card player"><div class="row"><div class="row"><div class="avatar">🚀</div><div><h2>Gokul</h2><div class="muted small">Full Stack · AI · Robotics</div></div></div><div class="big" id="gScore">0</div></div><div class="bar"><div class="fill" id="gBar"></div></div><div class="muted small" id="gDays">0 days</div></article>
+<article class="card player s"><div class="row"><div class="row"><div class="avatar">🧠</div><div><h2>Sangeeth</h2><div class="muted small">AI/Data · Full Stack · SaaS</div></div></div><div class="big" id="sScore">0</div></div><div class="bar"><div class="fill" id="sBar"></div></div><div class="muted small" id="sDays">0 days</div></article>
 </div>
+<div class="card section"><div class="row"><h2>Challenge pulse</h2><span class="chip" id="remaining">100 days</span></div><div class="metrics"><div class="metric"><b id="totalDays">0</b>days logged</div><div class="metric"><b id="totalPts">0</b>your points</div><div class="metric"><b id="streak">0</b>day streak</div><div class="metric"><b>10</b>max / day</div></div></div>
+</div>
+<div class="page" id="track">
+<div class="card"><div class="row"><h2>Today's track</h2><span class="chip">Day <span id="trackDay">1</span></span></div><div class="activities">
+<button class="activity" data-key="learn" onclick="toggle('learn')"><span class="ico">🧠</span><b>Learn</b><span class="pts">+2</span></button>
+<button class="activity" data-key="build" onclick="toggle('build')"><span class="ico">💻</span><b>Build</b><span class="pts">+3</span></button>
+<button class="activity" data-key="tasks" onclick="toggle('tasks')"><span class="ico">🎯</span><b>Task</b><span class="pts">+2</span></button>
+<button class="activity" data-key="doc" onclick="toggle('doc')"><span class="ico">📝</span><b>Document</b><span class="pts">+1</span></button>
+<button class="activity" data-key="github" onclick="toggle('github')"><span class="ico">🐙</span><b>GitHub</b><span class="pts">+1</span></button>
+<button class="activity" data-key="consistency" onclick="toggle('consistency')"><span class="ico">🔥</span><b>Consistency</b><span class="pts">+1</span></button>
+</div><div class="scoreToday"><div class="muted">TODAY'S SCORE</div><div class="n" id="todayScore">0</div><button class="btn" onclick="save()">SAVE DAY</button><div id="saveMsg" class="msg"></div></div><textarea id="notes" placeholder="What did you learn, build, fix or ship?"></textarea></div>
+</div>
+<div class="page" id="progress">
+<div class="card"><h2>100-day journey</h2><div class="track" id="timeline"></div></div>
+<div class="card section"><h2>Weekly milestones</h2><div id="weeks"></div></div>
+</div>
+<div class="page" id="achievements">
+<div class="card"><h2>Achievements</h2><div class="badgegrid" id="badges"></div></div>
+</div>
+<div class="page" id="compare">
+<div class="card"><h2>Progress comparison</h2><div class="grid2"><div><h3>Gokul</h3><p class="big" id="cg">0</p><div class="bar"><div class="fill" id="cbg"></div></div></div><div><h3>Sangeeth</h3><p class="big" id="cs">0</p><div class="bar"><div class="fill" id="cbs" style="background:var(--s)"></div></div></div></div><table><tr><th>Measure</th><th>Gokul</th><th>Sangeeth</th></tr><tr><td>Days logged</td><td id="gd">0</td><td id="sd">0</td></tr><tr><td>Total points</td><td id="gp">0</td><td id="sp">0</td></tr></table></div>
+</div>
+<div class="nav"><button class="active" onclick="page('home',this)">⌂ Home</button><button onclick="page('track',this)">✓ Track</button><button onclick="page('progress',this)">◉ Progress</button><button onclick="page('achievements',this)">🏆 Awards</button><button onclick="page('compare',this)">⇄ Compare</button></div>
+</main></div>
 <script>
-const SUPABASE_URL="https://hvnasippwadzygnaodpp.supabase.co";
-const SUPABASE_KEY="sb_publishable_ZFFW9ifODSHTwOPlOBWhqw_G8H7FACO";
-const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-let user=null,rows=[],profiles=[];
-const pts=r=>(+r.learn||0)+(+r.build||0)+(+r.tasks||0)+(+r.doc||0)+(+r.github||0)+(+r.consistency||0);
-const $=id=>document.getElementById(id);
-function showMsg(id,s){$(id).textContent=s}
-function challengeDay(d){const start=new Date("2026-09-23T00:00:00");const x=new Date(d+"T00:00:00");return Math.floor((x-start)/86400000)+1}
-function dayDate(n){const d=new Date("2026-09-23T00:00:00");d.setDate(d.getDate()+n-1);return d.toISOString().slice(0,10)}
-async function signup(){const e=$("email").value.trim(),p=$("password").value,n=$("display").value.trim();if(!n)return showMsg("msg","Enter a display name.");if(p.length<6)return showMsg("msg","Password must be at least 6 characters.");const {data,error}=await db.auth.signUp({email:e,password:p,options:{data:{display_name:n}}});if(error)return showMsg("msg",error.message);if(data.user){showMsg("msg","Account created. If email confirmation is enabled, confirm your email and then sign in.")}}
-async function login(){const e=$("email").value.trim(),p=$("password").value;const {data,error}=await db.auth.signInWithPassword({email:e,password:p});if(error)return showMsg("msg",error.message);user=data.user;await init()}
-async function logout(){await db.auth.signOut();location.reload()}
-async function init(){const name=user?.user_metadata?.display_name||user?.email?.split("@")[0]||"Player";await db.from("challenge_profiles").upsert({id:user.id,display_name:name,username:name.toLowerCase().replace(/\s+/g,"-")},{onConflict:"id"});$("auth").classList.add("hidden");$("app").classList.remove("hidden");$("status").textContent="Signed in";const today=new Date().toISOString().slice(0,10);$("date").value=today;const d=Math.max(1,Math.min(100,challengeDay(today)));$("day").value=d;await load()}
-async function load(){const [a,b]=await Promise.all([db.from("challenge_days").select("*").order("day"),db.from("challenge_profiles").select("*")]);if(a.error)return showMsg("saveMsg",a.error.message);rows=a.data||[];profiles=b.data||[];render()}
-function playerFor(uid){const p=profiles.find(x=>x.id===uid);const n=(p?.display_name||"").toLowerCase();return n.includes("sangeeth")?"s":n.includes("gokul")?"g":null}
-function render(){const totals={g:0,s:0},counts={g:0,s:0};for(const r of rows){const k=playerFor(r.user_id);if(k){totals[k]+=pts(r);counts[k]++}}for(const k of ["g","s"]){$(k+"Score").textContent=totals[k];$(k+"Bar").style.width=Math.min(100,totals[k]/10)+"%";$(k+"Days").textContent=counts[k]+" days logged"}let html="";for(let i=1;i<=100;i++){const r=rows.find(x=>x.user_id===user?.id&&x.day===i);const today=challengeDay(new Date().toISOString().slice(0,10))===i;html+=`<div class="day ${r?"done":""} ${today?"today":""}" title="${dayDate(i)}">Day ${i}${r?" ✓":""}</div>`}$("timeline").innerHTML=html}
-async function save(){if(!user)return;const d=+$("day").value;if(d<1||d>100)return showMsg("saveMsg","Day must be 1–100.");const obj={user_id:user.id,day:d,challenge_date:$("date").value,learn:+$("learn").value,build:+$("build").value,tasks:+$("tasks").value,doc:+$("doc").value,github:+$("github").value,consistency:+$("cons").value,notes:$("notes").value.trim()};const {error}=await db.from("challenge_days").upsert(obj,{onConflict:"user_id,day"});if(error)return showMsg("saveMsg",error.message);showMsg("saveMsg","Saved Day "+d+" — "+pts(obj)+" points.");await load()}
-$("date").addEventListener("change",()=>{const d=challengeDay($("date").value);if(d>=1&&d<=100)$("day").value=d});
-db.auth.getSession().then(async({data})=>{if(data.session){user=data.session.user;await init()}});
-</script>
-</body>
-</html>
+const URL="https://hvnasippwadzygnaodpp.supabase.co",KEY="sb_publishable_ZFFW9ifODSHTwOPlOBWhqw_G8H7FACO",db=supabase.createClient(URL,KEY);
+let user=null,rows=[],profiles=[],draft={learn:0,build:0,tasks:0,doc:0,github:0,consistency:0};const $=x=>document.getElementById(x),start=new Date("2026-09-23T00:00:00");
+function dayNo(date=new Date()){return Math.floor((new Date(date.toISOString().slice(0,10)+"T00:00:00")-start)/86400000)+1}
+function score(r){return ["learn","build","tasks","doc","github","consistency"].reduce((a,k)=>a+(+r[k]||0),0)}
+function page(id,b){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));$(id).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));b?.classList.add("active")}
+function toggle(k){draft[k]=draft[k]?0:(k==="build"?3:k==="learn"||k==="tasks"?2:1);document.querySelectorAll(".activity").forEach(x=>x.classList.toggle("active",!!draft[x.dataset.key]));$("todayScore").textContent=score(draft)}
+function msg(id,t){$(id).textContent=t}
+async function signup(){const e=$("email").value.trim(),p=$("password").value,n=$("display").value.trim();if(!n)return msg("msg","Enter Gokul or Sangeeth.");const {error}=await db.auth.signUp({email:e,password:p,options:{data:{display_name:n}}});msg("msg",error?.message||"Account created. Confirm email if required, then sign in.")}
+async function login(){const {data,error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error)return msg("msg",error.message);user=data.user;await init()}
+async function init(){const n=user.user_metadata?.display_name||user.email.split("@")[0];await db.from("challenge_profiles").upsert({id:user.id,display_name:n,username:n.toLowerCase().replace(/\s+/g,"-")},{onConflict:"id"});$("auth").classList.add("hidden");$("app").classList.remove("hidden");$("status").textContent="● Synced";await load();setDay(dayNo())}
+async function load(){const a=await db.from("challenge_days").select("*").order("day");const b=await db.from("challenge_profiles").select("*");if(a.error)return msg("saveMsg",a.error.message);rows=a.data||[];profiles=b.data||[];render()}
+function who(uid){const p=profiles.find(x=>x.id===uid),n=(p?.display_name||"").toLowerCase();return n.includes("sangeeth")?"s":n.includes("gokul")?"g":null}
+function setDay(n){$("heroDay").textContent=n;$("trackDay").textContent=n}
+function render(){let t={g:0,s:0},c={g:0,s:0};rows.forEach(r=>{const k=who(r.user_id);if(k){t[k]+=score(r);c[k]++}});for(const k of ["g","s"]){$(k+"Score").textContent=t[k];$(k+"Days").textContent=c[k]+" days logged";$(k+"Bar").style.width=Math.min(100,t[k]/10)+"%"}$("cg").textContent=t.g;$("cs").textContent=t.s;$("cbg").style.width=Math.min(100,t.g/10)+"%";$("cbs").style.width=Math.min(100,t.s/10)+"%";$("gd").textContent=c.g;$("sd").textContent=c.s;$("gp").textContent=t.g;$("sp").textContent=t.s;const mine=rows.filter(r=>r.user_id===user?.id);$("totalDays").textContent=mine.length;$("totalPts").textContent=mine.reduce((a,r)=>a+score(r),0);$("remaining").textContent=Math.max(0,100-mine.length)+" days left";let streak=0;for(let i=dayNo();i>=1;i--){if(mine.some(r=>r.day===i))streak++;else break}$("streak").textContent=streak;let html="";for(let i=1;i<=100;i++){const r=mine.find(x=>x.day===i);html+=`<button class="cell ${r?"done":""} ${i===dayNo()?"today":""}" onclick="setDay(${i})">D${i}</button>`}$("timeline").innerHTML=html;let wh="";for(let w=1;w<=14;w++){const n=rows.filter(r=>r.user_id===user?.id&&Math.ceil(r.day/7)===w).length;wh+=`<div class="metric" style="margin:8px 0"><b>Week ${w}</b>${n}/7 days logged</div>`}$("weeks").innerHTML=wh;const badges=[["🌱","First Day",mine.length>=1],["🔥","7-Day Streak",streak>=7],["💻","Builder",mine.some(r=>r.build>=3)],["🐙","GitHub Active",mine.some(r=>r.github>=1)],["🚀","Ship It",mine.reduce((a,r)=>a+score(r),0)>=50],["⚡","Technology Explorer",mine.length>=10],["🤝","Team Player",false],["🏆","100-Day Finisher",mine.length>=100]];$("badges").innerHTML=badges.map(b=>`<div class="badge ${b[2]?"":"locked"}"><div class="ico">${b[0]}</div><b>${b[1]}</b><div class="muted small">${b[2]?"Unlocked":"Locked"}</div></div>`).join("")}
+async function save(){if(!user)return;const d=dayNo();const obj={user_id:user.id,day:d,challenge_date:new Date().toISOString().slice(0,10),...draft,notes:$("notes").value.trim()};const {error}=await db.from("challenge_days").upsert(obj,{onConflict:"user_id,day"});if(error)return msg("saveMsg",error.message);msg("saveMsg","Saved Day "+d+" · "+score(obj)+" points");await load()}
+db.auth.getSession().then(x=>{if(x.data.session){user=x.data.session.user;init()}})
+</script></body></html>
