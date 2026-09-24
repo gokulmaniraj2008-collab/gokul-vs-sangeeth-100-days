@@ -28,6 +28,20 @@ const skills = [
   "Full-stack systems","AI planning","Code understanding","GitHub automation","Deployment","Product analytics","Launch execution","Technical writing","Developer workflow","Project integration"
 ];
 
+
+function businessFocus(d) {
+  if (d <= 10) return "Portfolio + small service experiment: show today's build to one potential user and seek a real problem.";
+  if (d <= 20) return "SaaS/client opportunity: turn today's feature into a reusable demo and contact one potential customer.";
+  if (d <= 30) return "Backend/e-commerce opportunity: identify a business workflow that could be improved and document a sellable solution.";
+  if (d <= 40) return "Automation/API service: find one repetitive business process that today's backend skill could automate.";
+  if (d <= 50) return "AI product experiment: identify a real business use case, build a demo, and collect user feedback.";
+  if (d <= 60) return "Data/ML opportunity: connect today's model or analytics skill to a measurable business problem.";
+  if (d <= 70) return "AgriTech validation: test today's feature with farmer/FPO/buyer requirements; record assumptions and feedback.";
+  if (d <= 80) return "IoT/robotics validation: connect today's hardware capability to a real agricultural problem and assess commercial feasibility.";
+  if (d <= 90) return "Production + sales readiness: improve reliability, security, deployment, documentation, and customer delivery.";
+  return "Product-company execution: validate, package, deploy, market, and measure the strongest product opportunity.";
+}
+
 const $ = (id) => document.getElementById(id);
 
 function ist() {
@@ -56,6 +70,7 @@ function render() {
   $("dayNumber").textContent = "DAY " + d;
   $("project").textContent = titles[d - 1];
   $("skill").textContent = skills[d - 1];
+  $("business").textContent = businessFocus(d);
   $("completed").textContent = completed;
   $("current").textContent = d;
   $("remaining").textContent = Math.max(0, 100 - d) + " days remaining";
