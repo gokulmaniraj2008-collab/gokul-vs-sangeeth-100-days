@@ -29,3 +29,4 @@ body{margin:0;background:radial-gradient(900px 500px at 20% -10%,#1b3150 0,#070b
 .nav button.active{color:var(--g);background:#10322d66}
 a{color:var(--g);text-decoration:none}
 @media(max-width:600px){.metrics{grid-template-columns:1fr 1fr}.hero{margin-top:30px}}
+.business{margin-top:12px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel2);color:var(--text);font-weight:750}.business::before{content:"💰 ";color:var(--g)}
