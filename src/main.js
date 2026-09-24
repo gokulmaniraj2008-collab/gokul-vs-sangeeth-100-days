@@ -1,45 +1,14 @@
 const START = Date.UTC(2026, 8, 23);
 
-const titles = [
-  "Portfolio landing page","Responsive profile card","Calculator app","To-do list","Pomodoro timer","Digital clock","Unit converter","Quiz app","Markdown previewer","Form validator",
-  "Weather dashboard","GitHub profile viewer","QR code generator","Password generator","Expense tracker","Habit tracker","Notes app","URL shortener UI","Color palette tool","Typing speed test",
-  "AI text summarizer","AI study helper","AI resume helper","AI email writer","AI FAQ bot","AI quiz generator","AI flashcard maker","AI prompt library","AI idea generator","AI meeting notes",
-  "CSV data viewer","Chart dashboard","Student marks analyzer","Attendance tracker","Inventory tracker","Sales dashboard","Budget planner","Data cleaning tool","JSON formatter","API testing client",
-  "REST API starter","Auth demo","File upload service","Contact form backend","URL metadata API","Image resize API","Webhook receiver","Notification service","Rate limiter demo","API documentation site",
-  "Mini blog CMS","Event registration app","Feedback platform","Survey builder","Poll app","Bookmark manager","Link-in-bio app","Recipe manager","Study planner","Job application tracker",
-  "Mobile task app","Mobile notes app","Mobile expense app","Mobile habit app","Mobile weather app","Mobile QR scanner UI","Mobile study timer","Mobile inventory app","Mobile portfolio app","Mobile event app",
-  "ESP32 sensor dashboard","Soil moisture monitor","Temperature monitor","Ultrasonic distance monitor","Servo controller","Relay controller","Smart irrigation dashboard","Robot status dashboard","IoT alerts panel","AGRIBOT control panel",
-  "Farm price dashboard","Crop planning tool","Farm expense tracker","FPO member tracker","Buyer matching prototype","Freshness tracker","Market demand dashboard","Route planner","Farm inventory system","Agriculture analytics dashboard",
-  "Mini SaaS landing page","SaaS admin dashboard","Subscription tracker","Team workspace","Feature flag dashboard","API key manager UI","Status page","Uptime monitor","Log viewer","Developer dashboard",
-  "Mini-Replit","AI project planner","AI code explainer","GitHub issue helper","Deployment dashboard","Company metrics dashboard","Product launch page","Technical documentation hub","Personal developer OS","100-day showcase"
-];
+const titles = ["Personal Dashboard","Responsive Profile Card","Expense Tracker","Smart Form","Search & Filter App","Analytics Dashboard","Drag & Drop Board","Weather/API App","Authentication UI","Mini-Replit","React Component System","Product Catalogue UI","Cart Application","Form + Validation","API-Powered App","Next.js Application","Server/Client Architecture","Authentication System","Protected Dashboard","Mini SaaS Product","SQL Laboratory","Relational Data Model","Prisma Application","Authentication API","Role-Based API","E-Commerce Backend Audit","Inventory Transaction System","Payment Integration Design","API Validation + Testing","Production E-Commerce V2","FastAPI Fundamentals","REST API","Authentication Service","File Upload Service","Notification Service","Webhook System","Rate Limiting","API Testing","Logging + Error System","Production API Service","LLM API App","Structured AI Output","Prompt Engineering","Embeddings","Vector Database","RAG Application","Tool Calling","AI Agent","AI Evaluation System","AI Research Assistant","Python Data Pipeline","Data Cleaning","Data Visualization","Statistics","Regression","Classification","Model Evaluation","Feature Engineering","Prediction API","Agricultural Demand Prediction","Crop Data System","Market-Price Service","Demand Forecasting","Production Recommendation","Selling-Window Prediction","Buyer Matching","FPO Aggregation","Logistics Optimizer","Farmer Dashboard","Mini Farm Intelligence Platform","ESP32 Fundamentals","Sensor System","Motor Controller","Relay/Pump System","Serial Debugging","ESP32 Wi-Fi","HTTP/MQTT Telemetry","Device Authentication","Cloud Commands","Cloud Agricultural Robot","Unit Testing","Integration Testing","API Security","Database Security","Docker","CI/CD","Logging + Monitoring","Performance Engineering","Deployment","Production Readiness Audit","Product Architecture","Multi-Product Architecture","Shared Authentication","Shared Database/Services","Product Implementation","Core Business Logic","Testing","Security","Deployment + Documentation","Farm Intelligence Product Suite"];
 
-const skills = [
-  "HTML/CSS & UI","Responsive CSS","JavaScript fundamentals","DOM & events","Productivity systems","JavaScript timing","Problem solving","JavaScript logic","Markdown & parsing","Forms & validation",
-  "APIs & async JavaScript","GitHub API","Web utilities","Security basics","State & local storage","Data modeling","CRUD UI","URL handling","UI design","Browser APIs",
-  "AI API integration","AI workflows","Prompt engineering","AI-assisted writing","RAG/FAQ concepts","AI generation","Study automation","Prompt design","Product ideation","AI note processing",
-  "CSV processing","Data visualization","Data analysis","Forms & data","CRUD systems","Dashboard design","Finance logic","Data cleaning","JSON & parsing","API testing",
-  "REST APIs","Authentication","File handling","Backend forms","Metadata APIs","Image processing","Webhooks","Notifications","Rate limiting","API documentation",
-  "CMS architecture","Events & forms","Feedback systems","Survey logic","Poll systems","Bookmarks","Web app UX","CRUD architecture","Planning systems","Application tracking",
-  "Mobile UX","Mobile data","Mobile finance","Mobile habits","Mobile APIs","Mobile scanning UI","Timers","Mobile CRUD","Mobile UI","Mobile events",
-  "ESP32 basics","Sensors","DHT/temperature","Ultrasonic sensing","Servo control","Relays","IoT control","Automation","Robot telemetry","ESP32 robotics",
-  "Agriculture data","Farm planning","Farm finance","FPO workflows","Matching logic","Freshness data","Demand analytics","Routing","Inventory","Agriculture analytics",
-  "SaaS UI","Admin systems","Subscriptions","Team systems","Feature flags","Secrets & API keys","Status monitoring","Uptime monitoring","Logs","Developer tooling",
-  "Full-stack systems","AI planning","Code understanding","GitHub automation","Deployment","Product analytics","Launch execution","Technical writing","Developer workflow","Project integration"
-];
+const skills = ["HTML/CSS/JS","Responsive CSS","JavaScript state","Form validation","DOM/data handling","Charts","Browser APIs","REST APIs","Auth UX","Full frontend integration","React architecture","Reusable components","Commerce UI","Validation","API integration","Next.js","Server/client design","Authentication","Authorization","SaaS architecture","PostgreSQL","Database design","Prisma ORM","Auth APIs","Authorization","Real backend analysis","Transactions","Payment architecture","Zod + testing","Production DB design","FastAPI","REST architecture","Auth service design","File handling","Notifications","Webhooks","Rate limiting","API testing","Observability","Production APIs","LLM APIs","Structured outputs","Prompt engineering","Embeddings","Vector search","RAG","Tool calling","Agents","Evaluation","AI applications","Python pipelines","Data cleaning","Visualization","Statistics","Regression","Classification","Model evaluation","Feature engineering","Prediction APIs","Agricultural ML","Crop data","Market data","Forecasting","Decision support","Selling windows","Matching","FPO workflows","Route optimization","Farmer UX","AgriTech architecture","ESP32","Sensors","Motor control","Relays/pumps","Debugging","Wi-Fi","Telemetry","Device security","Cloud commands","IoT robotics","Unit testing","Integration testing","API security","Database security","Docker","CI/CD","Monitoring","Performance","Cloud deployment","Production audit","Product architecture","Platform architecture","Shared auth","Shared services","Product development","Business logic","Quality engineering","Security engineering","Documentation","Product company engineering"];
+
+const businessPhases = ["Portfolio + small service experiment","React/SaaS client opportunity","Backend/e-commerce business solution","Automation/API service","AI product experiment","Data/ML business problem","AgriTech customer validation","IoT/robotics commercial validation","Production + sales readiness","Product-company execution"];
 
 
 function businessFocus(d) {
-  if (d <= 10) return "Portfolio + small service experiment: show today's build to one potential user and seek a real problem.";
-  if (d <= 20) return "SaaS/client opportunity: turn today's feature into a reusable demo and contact one potential customer.";
-  if (d <= 30) return "Backend/e-commerce opportunity: identify a business workflow that could be improved and document a sellable solution.";
-  if (d <= 40) return "Automation/API service: find one repetitive business process that today's backend skill could automate.";
-  if (d <= 50) return "AI product experiment: identify a real business use case, build a demo, and collect user feedback.";
-  if (d <= 60) return "Data/ML opportunity: connect today's model or analytics skill to a measurable business problem.";
-  if (d <= 70) return "AgriTech validation: test today's feature with farmer/FPO/buyer requirements; record assumptions and feedback.";
-  if (d <= 80) return "IoT/robotics validation: connect today's hardware capability to a real agricultural problem and assess commercial feasibility.";
-  if (d <= 90) return "Production + sales readiness: improve reliability, security, deployment, documentation, and customer delivery.";
-  return "Product-company execution: validate, package, deploy, market, and measure the strongest product opportunity.";
+  return businessPhases[Math.min(9, Math.floor((d - 1) / 10))];
 }
 
 const $ = (id) => document.getElementById(id);
@@ -66,6 +35,7 @@ function row(n) {
 function render() {
   const d = dayNo();
   const completed = Array.from({ length: 100 }, (_, i) => row(i + 1)).filter(Boolean).length;
+  const earned = Array.from({ length: 100 }, (_, i) => row(i + 1)).filter(Boolean).reduce((sum, x) => sum + Number(x?.revenue || 0), 0);
 
   $("dayNumber").textContent = "DAY " + d;
   $("project").textContent = titles[d - 1];
@@ -82,6 +52,8 @@ function render() {
     else break;
   }
   $("streak").textContent = streak;
+  const income = document.getElementById("income");
+  if (income) income.textContent = "₹" + earned.toLocaleString("en-IN");
   $("dayDate").textContent = ist().toLocaleDateString("en-IN", {
     day: "2-digit", month: "short", year: "numeric"
   }).toUpperCase();
