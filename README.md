@@ -1,6 +1,6 @@
 # Gokul vs Sangeeth — 100 Days
 
-A shared 100-day skill-building tracker for Gokul and Sangeeth. The challenge now doubles as the public roadmap for building Gokul's Mini-Replit platform.
+A shared 100-day skill-building tracker for Gokul and Sangeeth. The challenge tracks Gokul and Sangeeth's 100-day skill-building journey. Mini-Replit is a separate one-day major build milestone, not a 100-day project.
 
 ## Challenge
 - Day 1: 23 September 2026
@@ -8,19 +8,20 @@ A shared 100-day skill-building tracker for Gokul and Sangeeth. The challenge no
 - Daily base maximum: 10 points
 - Goal: Learn → Build → Ship → Document → Improve
 
-## Mini-Replit product roadmap
-| Days | Phase | Deliverable |
+## Mini-Replit — one-day major project
+Mini-Replit is intentionally **not** the 100-day roadmap. It is one complete focused build that should reach a working demo in a single day.
+
+| Stage | Focus | Deliverable |
 |---|---|---|
-| 1–10 | Foundation | Next.js/TypeScript foundation, dashboard, project creation |
-| 11–20 | Editor | File explorer, tabs, code editing, save/load |
-| 21–30 | Runtime | Run projects, processes, terminal foundation |
-| 31–40 | Preview | Live preview, ports, reload and errors |
-| 41–50 | GitHub | Import, read/write, commits and sync |
-| 51–60 | Vercel | Deployments, logs, production URL |
-| 61–70 | Workspace | Projects, settings, secrets, metadata |
-| 71–80 | AI Foundation | AI chat, code generation and edits |
-| 81–90 | AI Agent | Plan → edit → run → diagnose → fix |
-| 91–100 | Release | Security, testing, mobile UX, docs, production release |
+| Morning | Create | Next.js/TypeScript app, dashboard, project creation |
+| Morning | Edit | File explorer, tabs, code editor, save/load |
+| Afternoon | Run | Run command, process state, logs, stop/restart |
+| Afternoon | Preview | Live preview, refresh, status and errors |
+| Evening | GitHub | Import repository, edit files, commit changes |
+| Evening | Vercel | Deploy and show a production URL |
+| Final demo | Full loop | Create → Edit → Run → Preview → GitHub → Deploy |
+
+Advanced AI-agent features and secure isolated runtimes are future iterations, not part of the one-day MVP.
 
 ## Daily scoring
 | Activity | Points |
@@ -34,8 +35,11 @@ A shared 100-day skill-building tracker for Gokul and Sangeeth. The challenge no
 
 Planned bonuses: mini-project +10, major project +25, new technology +5, hackathon/event +10, help friend +3, published demo +5.
 
-## Architecture target
-Create project → Edit files → Run → Live preview → GitHub sync → Vercel deployment. Later: AI agent and secure isolated runtimes.
+## Mini-Replit architecture target
+Create project → Edit files → Run → Live preview → GitHub sync → Vercel deployment.
+
+## 100-day challenge target
+Use the remaining challenge days for separate skills, projects, experiments, competitions, documentation, and company-building work. Mini-Replit is one major milestone within the challenge, not the definition of all 100 days.
 
 ## Source of truth
 - Challenge tracker: this repository.
