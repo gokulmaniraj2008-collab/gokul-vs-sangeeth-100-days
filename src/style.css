@@ -21,7 +21,7 @@ body{margin:0;background:radial-gradient(900px 500px at 20% -10%,#1b3150 0,#070b
 .item{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:13px}
 .progress{height:10px;background:#202c3f;border-radius:99px;overflow:hidden;margin:14px 0}
 .fill{height:100%;background:var(--g);border-radius:99px}
-.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .metric{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:14px}
 .metric b{display:block;font-size:24px}
 .nav{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:10;width:min(700px,calc(100% - 30px));display:flex;justify-content:space-around;background:#0b1320f2;backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:22px;padding:8px}
