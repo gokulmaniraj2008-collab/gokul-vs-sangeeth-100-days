@@ -1,8 +1,13 @@
 # Gokul vs Sangeeth — 100 Days
 
-A shared 100-day skill-building tracker for Gokul and Sangeeth. The challenge tracks Gokul and Sangeeth's 100-day skill-building journey. Mini-Replit is a separate one-day major build milestone, not a 100-day project.
+A shared 100-day build challenge for Gokul and Sangeeth. The core rule is simple: **1 day = 1 complete project, so 100 days = 100 projects.** Mini-Replit is one of those projects and is intended to be completed as a one-day major build.
 
-## Challenge
+## Challenge — 100 Days = 100 Projects
+
+Every challenge day has its own separate project. The goal is not to stretch one project across 100 days.
+
+**Day N → Project N → build → ship → document.**
+
 - Day 1: 23 September 2026
 - Day 100: 1 January 2027
 - Daily base maximum: 10 points
@@ -38,8 +43,8 @@ Planned bonuses: mini-project +10, major project +25, new technology +5, hackath
 ## Mini-Replit architecture target
 Create project → Edit files → Run → Live preview → GitHub sync → Vercel deployment.
 
-## 100-day challenge target
-Use the remaining challenge days for separate skills, projects, experiments, competitions, documentation, and company-building work. Mini-Replit is one major milestone within the challenge, not the definition of all 100 days.
+## 100-project challenge target
+Build 100 separate projects across the 100 days. Projects can cover web, AI, data, mobile, APIs, SaaS, IoT/robotics, agriculture technology, developer tools, automation, and company/product experiments. Mini-Replit is **one project among the 100**, not the definition of the whole challenge.
 
 ## Source of truth
 - Challenge tracker: this repository.
