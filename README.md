@@ -1,55 +1,92 @@
-# Gokul vs Sangeeth — 100 Days
+# Gokul — 100-Day Skill, Business & Income System
 
-A shared 100-day build challenge for Gokul and Sangeeth. The core rule is simple: **1 day = 1 complete project, so 100 days = 100 projects.** Mini-Replit is one of those projects and is intended to be completed as a one-day major build.
+A personal 100-day execution system running from **23 September 2026 to 1 January 2027**.
 
-## Challenge — 100 Days = 100 Projects
+The goal is not competition. The goal is to become better at building real products and turn those skills into validated business opportunities.
 
-Every challenge day has its own separate project. The goal is not to stretch one project across 100 days.
+## Core loop
 
-**Day N → Project N → build → ship → document.**
+**Learn → Build → Verify → Sell → Measure → Improve**
 
-- Day 1: 23 September 2026
-- Day 100: 1 January 2027
-- Daily base maximum: 10 points
-- Goal: Learn → Build → Ship → Document → Improve
+Every day combines:
+- one focused technical skill
+- one practical project
+- GitHub/portfolio evidence
+- one business or customer experiment
+- measurable income tracking
+- reflection and improvement
 
-## Mini-Replit — one-day major project
-Mini-Replit is intentionally **not** the 100-day roadmap. It is one complete focused build that should reach a working demo in a single day.
+## 10 phases
 
-| Stage | Focus | Deliverable |
+| Days | Focus | Business direction |
 |---|---|---|
-| Morning | Create | Next.js/TypeScript app, dashboard, project creation |
-| Morning | Edit | File explorer, tabs, code editor, save/load |
-| Afternoon | Run | Run command, process state, logs, stop/restart |
-| Afternoon | Preview | Live preview, refresh, status and errors |
-| Evening | GitHub | Import repository, edit files, commit changes |
-| Evening | Vercel | Deploy and show a production URL |
-| Final demo | Full loop | Create → Edit → Run → Preview → GitHub → Deploy |
+| 1–10 | Frontend Engineering | Portfolio + small services |
+| 11–20 | React / Next.js | SaaS + client solutions |
+| 21–30 | Database / Backend / E-commerce | Business systems |
+| 31–40 | Backend Engineering | APIs + automation |
+| 41–50 | AI Engineering | AI products/services |
+| 51–60 | Data + ML | Analytics + prediction |
+| 61–70 | AgriTech | Farmer/FPO/buyer validation |
+| 71–80 | IoT + Robotics | Agricultural robotics validation |
+| 81–90 | Production Engineering | Reliable delivery + sales |
+| 91–100 | Product Engineering | Product company launch |
 
-Advanced AI-agent features and secure isolated runtimes are future iterations, not part of the one-day MVP.
+## Daily agent workflow
 
-## Daily scoring
-| Activity | Points |
-|---|---:|
-| Learn a new concept | +2 |
-| Practice / code / build | +3 |
-| Meaningful task | +2 |
-| Document / share | +1 |
-| GitHub / project contribution | +1 |
-| Daily consistency | +1 |
+ChatGPT is used as the planning and execution layer, with connected tools such as GitHub, Supabase, Vercel, Replit, Canva, Windsor.ai and scheduled Automations where available.
 
-Planned bonuses: mini-project +10, major project +25, new technology +5, hackathon/event +10, help friend +3, published demo +5.
+**Plan → inspect → build → test → verify → commit → deploy → business experiment → report**
 
-## Mini-Replit architecture target
-Create project → Edit files → Run → Live preview → GitHub sync → Vercel deployment.
+Important actions remain subject to user approval, and the system must not claim success without tool evidence.
 
-## 100-project challenge target
-Build 100 separate projects across the 100 days. Projects can cover web, AI, data, mobile, APIs, SaaS, IoT/robotics, agriculture technology, developer tools, automation, and company/product experiments. Mini-Replit is **one project among the 100**, not the definition of the whole challenge.
+## Income system
+
+The challenge does **not** assume a guaranteed daily income.
+
+Instead it measures:
+- leads
+- customers
+- revenue
+- expenses
+- profit
+- product usage
+- experiments
+- lessons learned
+
+The objective by Day 100 is to have at least one **validated, repeatable path toward income**, based on actual customer evidence.
+
+## Existing project practice grounds
+
+The roadmap can use existing work such as:
+- FarmPlug AI / KisanLife — AgriTech and full-stack
+- AGRIBOT — IoT and robotics
+- E-commerce / Bazario — commerce, backend and PostgreSQL
+- DRYNN — commerce, payments and AI
+- Mini-Replit — developer product
+- GGE — product architecture
+- AutoPlay — Android and automation
+- GKFXL-OS — AI/system architecture
+
+## Mini-Replit
+
+Mini-Replit remains **one one-day major project**, not a 100-day project.
+
+Target loop:
+
+**Create → Edit → Run → Preview → GitHub → Deploy**
+
+Advanced isolated runtimes and agentic features are future iterations.
 
 ## Source of truth
-- Challenge tracker: this repository.
-- Mini-Replit product source: a separate product repository when development begins.
-- Never commit API keys, access tokens, or service-role secrets.
 
-## Repository
-https://github.com/gokulmaniraj2008-collab/gokul-vs-sangeeth-100-days
+- Challenge tracker: this repository.
+- Product source: separate product repositories where appropriate.
+- Never commit API keys, access tokens, passwords, or service-role secrets.
+
+## Success definition
+
+By Day 100:
+
+**Idea → Architecture → UI → API → Database → AI → IoT → Testing → Security → Deployment → Customer validation → Income experiment → Product**
+
+The challenge is personal: **develop my skills, not compete.**
