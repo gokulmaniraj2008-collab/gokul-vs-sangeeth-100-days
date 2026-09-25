@@ -58,3 +58,39 @@ body{background-image:radial-gradient(circle at 10% 0%,rgba(22,131,59,.06),trans
 .card,.social-box,.evidence-box,.execution-step,.evidence-meta>div{box-shadow:var(--shadow)}
 .timeline-track{background:#dfe7dd}
 .btn{background:#fff;color:var(--text);box-shadow:0 3px 12px rgba(25,55,30,.05)}
+
+
+/* FINAL LIGHT-ONLY THEME — no dark surfaces */
+:root{
+  color-scheme:light;
+  --bg:#f7faf7;
+  --panel:#ffffff;
+  --panel2:#f3f7f2;
+  --text:#162018;
+  --muted:#5f6c62;
+  --line:#d7e2d8;
+  --accent:#16833b;
+  --accent2:#4f8f1f;
+  --shadow:0 8px 28px rgba(25,55,30,.08);
+}
+html,body{background:#f7faf7!important;color:#162018!important}
+body{background-image:radial-gradient(circle at 10% 0%,rgba(22,131,59,.055),transparent 30%),radial-gradient(circle at 90% 10%,rgba(79,143,31,.045),transparent 28%)!important}
+body:before{background:radial-gradient(700px 360px at 50% -80px,rgba(22,131,59,.05),transparent 70%)!important}
+.card{background:#fff!important;color:#162018!important;border:1px solid #d7e2d8!important;box-shadow:0 8px 28px rgba(25,55,30,.08)!important;backdrop-filter:none!important}
+.item,.metric,.social-box,.evidence-box,.evidence-meta>div,.execution-step{background:#f3f7f2!important;color:#162018!important;border:1px solid #d7e2d8!important;box-shadow:none!important}
+.business{background:#f0f7f1!important;color:#162018!important;border:1px solid #cfe0d1!important}
+.progress{background:#e1e9e1!important}
+.timeline-track{background:#e1e9e1!important}
+.nav{background:#fff!important;border:1px solid #d7e2d8!important;box-shadow:0 10px 30px rgba(25,55,30,.12)!important;backdrop-filter:none!important}
+.nav button{color:#5f6c62!important}
+.nav button.active{color:#fff!important;background:#16833b!important}
+.live-dot{color:#16833b!important;border-color:#b9d8bd!important;background:#f3f8f3!important}
+.state{background:#f3f7f2!important;border-color:#d7e2d8!important}
+.btn{background:#fff!important;color:#162018!important;border-color:#d7e2d8!important}
+.muted{color:#5f6c62!important}
+.tag,.ey,.skill,a{color:#16833b!important}
+.business:before{color:#4f8f1f!important}
+.hero h1,.card h2,.project,.daynum,.metric b,.brand,.clock{color:#162018!important}
+.fill,.timeline-fill{background:linear-gradient(90deg,#16833b,#6aa52b)!important}
+.timeline-dot{background:#4f8f1f!important;box-shadow:0 0 0 5px rgba(79,143,31,.12)!important}
+.social-card,.evidence-card{border-color:#cfe0d1!important}
