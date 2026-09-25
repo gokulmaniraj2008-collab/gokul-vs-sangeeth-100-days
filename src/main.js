@@ -44,6 +44,12 @@ function render() {
   $("completed").textContent = completed;
   $("current").textContent = d;
   $("remaining").textContent = Math.max(0, 100 - d) + " days remaining";
+  const pct = Math.max(0, Math.min(100, d));
+  const tf = $("timelineFill"), td = $("timelineDot");
+  if (tf) tf.style.width = pct + "%";
+  if (td) td.style.left = pct + "%";
+  const tl = $("timelineLabel");
+  if (tl) tl.textContent = "DAY " + d + " / 100";
   $("progressBar").style.width = completed + "%";
 
   let streak = 0;
