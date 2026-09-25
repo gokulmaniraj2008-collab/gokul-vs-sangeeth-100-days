@@ -45,6 +45,20 @@ function render() {
   $("current").textContent = d;
   $("remaining").textContent = Math.max(0, 100 - d) + " days remaining";
   const pct = Math.max(0, Math.min(100, d));
+  const ev=(id,val)=>{const el=$(id);if(el)el.textContent=val;};
+  ev("eDay", "DAY "+d);
+  const dayData=(typeof challenges!=="undefined" && challenges[d-1]) ? challenges[d-1] : null;
+  if(dayData){
+    ev("eTask", dayData.title || dayData.project || "Daily build");
+    ev("eSkill", dayData.skill || "Skill development");
+    ev("ePhase", dayData.phase || "100-Day System");
+    ev("eBuild", dayData.title || "Today's project");
+    ev("eWebsite", "Update + verify today's progress");
+    ev("eBusiness", dayData.business || "Run one practical experiment");
+  }
+  ev("eGithub", "Commit evidence: pending until verified");
+  ev("eInstagram", "Publish today's public build story");
+  ev("eVerify", "Test → verify → record result");
   const tf = $("timelineFill"), td = $("timelineDot");
   if (tf) tf.style.width = pct + "%";
   if (td) td.style.left = pct + "%";
