@@ -38,3 +38,11 @@ a:hover{text-decoration:underline}
 @media(max-width:820px){.checklist{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.wrap{padding:16px 14px 105px}.hero{padding:54px 0 28px}.hero h1{font-size:clamp(54px,17vw,82px)}.hero p{font-size:16px}.card{padding:20px;border-radius:22px}.daynum{font-size:44px}.project{margin-top:24px}.checklist{grid-template-columns:1fr 1fr}.item{min-height:78px}.metrics{grid-template-columns:1fr 1fr}.metric b{font-size:24px}.row{align-items:flex-start}}
 @media(max-width:390px){.checklist{grid-template-columns:1fr}.daynum{font-size:40px}.hero{padding-top:42px}}
+.social-card{border-color:#31413e}
+.live-dot{font-size:10px;font-weight:950;letter-spacing:.12em;color:var(--accent2);border:1px solid #3b4933;padding:7px 10px;border-radius:999px}
+.social-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}
+.social-box{display:flex;flex-direction:column;gap:7px;background:var(--panel2);border:1px solid var(--line);border-radius:18px;padding:16px;min-height:145px}
+.social-icon{font-size:24px}.social-box b{font-size:16px}.social-box .muted{font-size:13px;line-height:1.45}
+@media(max-width:820px){.social-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.social-grid{grid-template-columns:1fr 1fr}.live-dot{font-size:9px}}
+@media(max-width:390px){.social-grid{grid-template-columns:1fr}}
