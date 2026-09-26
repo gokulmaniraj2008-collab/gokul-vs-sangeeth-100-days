@@ -1,6 +1,6 @@
 # Gokul — 100-Day Skill, Business & Income System
 
-A personal 100-day execution system running from **23 September 2026 to 1 January 2027**.
+A personal 100-day execution system running from **26 September 2026 to 3 January 2027**.
 
 The goal is not competition. The goal is to become better at building real products and turn those skills into validated business opportunities.
 
