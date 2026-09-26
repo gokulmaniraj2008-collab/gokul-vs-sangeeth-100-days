@@ -1,3 +1,5 @@
+import { timingSafeEqual } from "node:crypto";
+
 const GRAPH_VERSION = process.env.INSTAGRAM_GRAPH_VERSION || "v23.0";
 
 function json(res, status, body) {
@@ -24,9 +26,21 @@ export default async function handler(req, res) {
   }
 
   const expected = process.env.AGENT_CRON_SECRET;
-  const supplied = req.headers.authorization?.replace(/^Bearer\s+/i, "");
-  if (!expected || !supplied || supplied.length !== expected.length ||
-      ![...supplied].reduce((ok, ch, i) => ok & (ch.charCodeAt(0) ^ expected.charCodeAt(i)) === 0, 1)) {
+  const authorization = req.headers.authorization;
+  const match = typeof authorization === "string"
+    ? authorization.match(/^Bearer\\s+(.+)$/i)
+    : null;
+  const supplied = match?.[1];
+  const expectedBytes = expected ? Buffer.from(expected, "utf8") : null;
+  const suppliedBytes = supplied ? Buffer.from(supplied, "utf8") : null;
+  const authorized = Boolean(
+    expectedBytes &&
+    suppliedBytes &&
+    expectedBytes.length === suppliedBytes.length &&
+    timingSafeEqual(expectedBytes, suppliedBytes)
+  );
+
+  if (!authorized) {
     return json(res, 401, { error: "Unauthorized" });
   }
 
