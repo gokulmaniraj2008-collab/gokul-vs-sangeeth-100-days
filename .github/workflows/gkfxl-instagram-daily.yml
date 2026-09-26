@@ -1,0 +1,45 @@
+name: GKFXL Daily Instagram Agent
+
+on:
+  schedule:
+    # 06:00 Asia/Kolkata (00:30 UTC)
+    - cron: "30 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gkfxl-instagram-daily
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate required configuration
+        env:
+          AGENT_ENDPOINT: ${{ secrets.GKFXL_AGENT_ENDPOINT }}
+          AGENT_SECRET: ${{ secrets.GKFXL_AGENT_SECRET }}
+          AUTO_PUBLISH: ${{ vars.GKFXL_AUTO_PUBLISH }}
+        run: |
+          set -euo pipefail
+          if [ "$AUTO_PUBLISH" != "true" ]; then
+            echo "Auto-publishing is disabled; no post was attempted."
+            exit 0
+          fi
+          test -n "$AGENT_ENDPOINT" || (echo "Missing GKFXL_AGENT_ENDPOINT secret" && exit 1)
+          test -n "$AGENT_SECRET" || (echo "Missing GKFXL_AGENT_SECRET secret" && exit 1)
+      - name: Trigger secure publishing endpoint
+        env:
+          AGENT_ENDPOINT: ${{ secrets.GKFXL_AGENT_ENDPOINT }}
+          AGENT_SECRET: ${{ secrets.GKFXL_AGENT_SECRET }}
+          AUTO_PUBLISH: ${{ vars.GKFXL_AUTO_PUBLISH }}
+        run: |
+          set -euo pipefail
+          if [ "$AUTO_PUBLISH" != "true" ]; then exit 0; fi
+          curl --fail-with-body --silent --show-error \
+            --request POST "$AGENT_ENDPOINT" \
+            --header "Authorization: Bearer $AGENT_SECRET" \
+            --header "Content-Type: application/json" \
+            --data '{}'
