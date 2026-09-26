@@ -47,18 +47,25 @@ function render() {
   const pct = Math.max(0, Math.min(100, d));
   const ev=(id,val)=>{const el=$(id);if(el)el.textContent=val;};
   ev("eDay", "DAY "+d);
-  const dayData=(typeof challenges!=="undefined" && challenges[d-1]) ? challenges[d-1] : null;
-  if(dayData){
-    ev("eTask", dayData.title || dayData.project || "Daily build");
-    ev("eSkill", dayData.skill || "Skill development");
-    ev("ePhase", dayData.phase || "100-Day System");
-    ev("eBuild", dayData.title || "Today's project");
-    ev("eWebsite", "Update + verify today's progress");
-    ev("eBusiness", dayData.business || "Run one practical experiment");
-  }
-  ev("eGithub", "Commit evidence: pending until verified");
-  ev("eInstagram", "Publish today's public build story");
-  ev("eVerify", "Test → verify → record result");
+  const dayData = {
+    title: titles[d - 1],
+    skill: skills[d - 1],
+    phase: businessFocus(d),
+    business: businessFocus(d)
+  };
+  ev("eTask", dayData.title);
+  ev("eSkill", dayData.skill);
+  ev("ePhase", dayData.phase);
+  ev("eBuild", dayData.title);
+  ev("eWebsite", "Update + verify today's progress");
+  ev("eBusiness", dayData.business);
+  const today = row(d) || {};
+  const github = today.github || today.commit || "Commit evidence: pending until verified";
+  const instagram = today.instagram || "Publish today's public build story";
+  const verify = today.verified ? "Verified: " + (today.verification || "test passed") : "Test → verify → record result";
+  ev("eGithub", github);
+  ev("eInstagram", instagram);
+  ev("eVerify", verify);
   const tf = $("timelineFill"), td = $("timelineDot");
   if (tf) tf.style.width = pct + "%";
   if (td) td.style.left = pct + "%";
