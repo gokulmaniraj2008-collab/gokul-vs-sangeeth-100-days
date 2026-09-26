@@ -90,3 +90,26 @@ By Day 100:
 **Idea → Architecture → UI → API → Database → AI → IoT → Testing → Security → Deployment → Customer validation → Income experiment → Product**
 
 The challenge is personal: **develop my skills, not compete.**
+
+
+## GKFXL AI Agent — Instagram publishing (separate-branch foundation)
+
+The repository includes a Vercel serverless endpoint at `/api/instagram-publish` and a GitHub Actions workflow scheduled for 06:00 India time. It uses Meta's official Instagram Graph API image-publishing flow. The workflow is intentionally inert until the GitHub variable `GKFXL_AUTO_PUBLISH=true` is set. The endpoint independently requires Vercel environment variable `IG_AUTO_PUBLISH=true` and a matching secret.
+
+### Required Vercel environment variables
+
+- `AGENT_CRON_SECRET` — strong random secret shared with GitHub Actions.
+- `IG_AUTO_PUBLISH` — keep `false` until a test is complete; set to `true` only when ready.
+- `IG_USER_ID` — Instagram professional account ID.
+- `IG_ACCESS_TOKEN` — token with Instagram content-publishing permission; server-side only.
+- `IG_PUBLIC_IMAGE_URL` — HTTPS image URL that Meta can fetch publicly.
+- `IG_DEFAULT_CAPTION` — optional base caption.
+- `INSTAGRAM_GRAPH_VERSION` — optional Graph API version, e.g. `v23.0`; verify against the app's currently supported version.
+
+### Required GitHub Actions settings
+
+- Secret `GKFXL_AGENT_ENDPOINT`: the deployed endpoint URL, e.g. `https://YOUR-DEPLOYMENT/api/instagram-publish`.
+- Secret `GKFXL_AGENT_SECRET`: same value as `AGENT_CRON_SECRET`.
+- Repository variable `GKFXL_AUTO_PUBLISH`: leave unset/false until the account, image, permissions, and test post are verified.
+
+**Safety:** never put access tokens in source code, browser code, commit messages, workflow YAML, or logs. This initial publisher uses a configured image and caption; it does not yet generate unique creative assets or guarantee idempotency. Keep automation disabled until a controlled test and duplicate-post strategy are in place. No Supabase tables or production data are changed by this branch.
