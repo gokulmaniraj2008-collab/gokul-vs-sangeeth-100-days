@@ -93,3 +93,68 @@ test("skips publishing when today's marker is in recent media", async () => {
   assert.equal(res.json().published, false);
   assert.equal(calls, 1);
 });
+
+
+test("returns 503 when required Instagram configuration is missing", async () => {
+  setEnv({ AGENT_CRON_SECRET: "secret-value", IG_AUTO_PUBLISH: "true" });
+  globalThis.fetch = async () => { throw new Error("fetch should not be called"); };
+  const res = responseRecorder();
+  await handler({ method: "POST", headers: { authorization: "Bearer secret-value" } }, res);
+  assert.equal(res.statusCode, 503);
+  assert.match(res.json().error, /configuration/i);
+});
+
+test("publishes through mocked Graph API calls when no duplicate exists", async () => {
+  setEnv({
+    AGENT_CRON_SECRET: "secret-value",
+    IG_AUTO_PUBLISH: "true",
+    IG_USER_ID: "test-user",
+    IG_ACCESS_TOKEN: "test-token",
+    IG_PUBLIC_IMAGE_URL: "https://example.com/test.jpg",
+    IG_DEFAULT_CAPTION: "Test progress"
+  });
+  const calls = [];
+  globalThis.fetch = async (input, options) => {
+    const url = new URL(input);
+    calls.push({ url, method: options?.method });
+    if (url.pathname.endsWith("/test-user/media") && !options?.method) {
+      return { ok: true, status: 200, async json() { return { data: [] }; } };
+    }
+    if (url.pathname.endsWith("/test-user/media") && options?.method === "POST") {
+      assert.equal(url.searchParams.get("image_url"), "https://example.com/test.jpg");
+      assert.match(url.searchParams.get("caption"), /Day update • \d{4}-\d{2}-\d{2}/);
+      return { ok: true, status: 200, async json() { return { id: "container-123" }; } };
+    }
+    if (url.pathname.endsWith("/test-user/media_publish")) {
+      assert.equal(url.searchParams.get("creation_id"), "container-123");
+      return { ok: true, status: 200, async json() { return { id: "published-456" }; } };
+    }
+    throw new Error("Unexpected mocked Graph API request");
+  };
+  const res = responseRecorder();
+  await handler({ method: "POST", headers: { authorization: "Bearer secret-value" } }, res);
+  assert.equal(res.statusCode, 200);
+  assert.equal(res.json().published, true);
+  assert.equal(res.json().mediaId, "published-456");
+  assert.equal(calls.length, 3);
+});
+
+test("returns a generic 502 when Instagram API fails", async () => {
+  setEnv({
+    AGENT_CRON_SECRET: "secret-value",
+    IG_AUTO_PUBLISH: "true",
+    IG_USER_ID: "test-user",
+    IG_ACCESS_TOKEN: "test-token",
+    IG_PUBLIC_IMAGE_URL: "https://example.com/test.jpg"
+  });
+  globalThis.fetch = async () => ({
+    ok: false,
+    status: 500,
+    async json() { return { error: { message: "mock failure" } }; }
+  });
+  const res = responseRecorder();
+  await handler({ method: "POST", headers: { authorization: "Bearer secret-value" } }, res);
+  assert.equal(res.statusCode, 502);
+  assert.match(res.json().error, /publishing failed/i);
+  assert.doesNotMatch(JSON.stringify(res.json()), /mock failure|test-token/);
+});
