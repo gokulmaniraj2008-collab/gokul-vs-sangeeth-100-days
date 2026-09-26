@@ -1,3 +1,5 @@
+import { timingSafeEqual } from "node:crypto";
+
 const GRAPH_VERSION = process.env.INSTAGRAM_GRAPH_VERSION || "v23.0";
 
 function json(res, status, body) {
@@ -17,6 +19,18 @@ async function graphPost(path, params, token) {
   return data;
 }
 
+async function graphGet(path, params, token) {
+  const url = new URL(`https://graph.facebook.com/${GRAPH_VERSION}/${path}`);
+  for (const [key, value] of Object.entries(params)) url.searchParams.set(key, value);
+  url.searchParams.set("access_token", token);
+  const response = await fetch(url);
+  const data = await response.json();
+  if (!response.ok || data.error) {
+    throw new Error(`Instagram API request failed (${response.status}): ${data.error?.message || "unknown error"}`);
+  }
+  return data;
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -24,9 +38,21 @@ export default async function handler(req, res) {
   }
 
   const expected = process.env.AGENT_CRON_SECRET;
-  const supplied = req.headers.authorization?.replace(/^Bearer\s+/i, "");
-  if (!expected || !supplied || supplied.length !== expected.length ||
-      ![...supplied].reduce((ok, ch, i) => ok & (ch.charCodeAt(0) ^ expected.charCodeAt(i)) === 0, 1)) {
+  const authorization = req.headers.authorization;
+  const match = typeof authorization === "string"
+    ? authorization.match(/^Bearer\s+(.+)$/i)
+    : null;
+  const supplied = match?.[1];
+  const expectedBytes = expected ? Buffer.from(expected, "utf8") : null;
+  const suppliedBytes = supplied ? Buffer.from(supplied, "utf8") : null;
+  const authorized = Boolean(
+    expectedBytes &&
+    suppliedBytes &&
+    expectedBytes.length === suppliedBytes.length &&
+    timingSafeEqual(expectedBytes, suppliedBytes)
+  );
+
+  if (!authorized) {
     return json(res, 401, { error: "Unauthorized" });
   }
 
@@ -43,6 +69,18 @@ export default async function handler(req, res) {
 
   try {
     const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+    const dayMarker = `Day update • ${today}`;
+    const recent = await graphGet(`${igUserId}/media`, {
+      fields: "id,caption,timestamp",
+      limit: "25"
+    }, token);
+    const alreadyPublished = (recent.data || []).some((item) =>
+      typeof item.caption === "string" && item.caption.includes(dayMarker)
+    );
+    if (alreadyPublished) {
+      return json(res, 200, { ok: true, published: false, skipped: true, reason: "A GKFXL post for today already exists.", date: today });
+    }
+
     const caption = (process.env.IG_DEFAULT_CAPTION || "Day-by-day progress with GKFXL ⚡").trim() + `\n\nDay update • ${today}\n#GKFXL #100DaysOfBuilding`;
     const container = await graphPost(`${igUserId}/media`, {
       image_url: imageUrl,
